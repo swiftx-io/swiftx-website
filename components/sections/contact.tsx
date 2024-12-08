@@ -43,7 +43,7 @@ export function ContactSection() {
       form.reset();
       toast({
         title: 'Form submitted successfully!',
-        description: "We'll get back to you soon.",
+        description: 'We&apos;ll get back to you soon.',
         variant: 'default',
       });
     } catch (error) {
@@ -59,6 +59,28 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-20 bg-muted/50">
       <div className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <Card className="p-8">
+            <h3 className="text-2xl font-bold tracking-tight mb-4">
+              Curious whether SwiftX is the right fit for your project?
+            </h3>
+            <p className="text-muted-foreground">
+              We understand that every project is different and requires an individual approach.
+              That is why we offer a free consulting session with an experienced software developer.
+              During the session, you will have a chance to find out which software solutions are
+              the right fit for your project and how working with SwiftX may look like.
+            </p>
+          </Card>
+          <Card className="p-8">
+            <h3 className="text-2xl font-bold tracking-tight mb-4">
+              Looking for software development services?
+            </h3>
+            <p className="text-muted-foreground">
+              Before we start, we&apos;d like to better understand your needs. We&apos;ll review
+              your application and schedule a free estimation call.
+            </p>
+          </Card>
+        </div>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Get in Touch</h2>
           <p className="text-muted-foreground">
