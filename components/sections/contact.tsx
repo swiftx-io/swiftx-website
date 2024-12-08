@@ -7,7 +7,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { formSchema, type FormData, submitToHubspot } from '@/lib/hubspot';
@@ -25,8 +32,8 @@ export function ContactSection() {
       phone: '',
       company: '',
       source: '',
-      projectDetails: ''
-    }
+      projectDetails: '',
+    },
   });
 
   async function onSubmit(data: FormData) {
@@ -35,7 +42,7 @@ export function ContactSection() {
       await submitToHubspot(data);
       toast({
         title: 'Success!',
-        description: 'Your message has been sent. We\'ll get back to you soon.',
+        description: "Your message has been sent. We'll get back to you soon.",
       });
       form.reset();
     } catch (error) {
