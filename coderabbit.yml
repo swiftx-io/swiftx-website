@@ -1,0 +1,7 @@
+reviews:
+  auto_review: true
+  review_after_bots: true
+  bots_to_include:
+    - "github-actions[bot]"
+    - "dependabot[bot]"
+    - "devin-ai-integration[bot][bot]"
