@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <main>{children}</main>
           <Footer />
+          <Toaster />
         </ThemeProvider>
         <Script src="//js.hsforms.net/forms/embed/v2.js" strategy="lazyOnload" />
       </body>
