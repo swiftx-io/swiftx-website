@@ -11,9 +11,10 @@ export function Logo() {
           width={32}
           height={32}
           className="object-contain"
+          priority
         />
       </div>
-      <span className="text-xl font-bold">SwiftX</span>
+      <span className="text-xl font-bold text-[#0A0B26] dark:text-white">SwiftX</span>
     </Link>
   );
 }
