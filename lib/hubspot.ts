@@ -14,42 +14,19 @@ export const formSchema = z.object({
 export type FormData = z.infer<typeof formSchema>;
 
 /**
- * Submits form data to Hubspot's form submission API
+ * Submits form data to our API endpoint which handles Hubspot submission
  * @param formData The validated form data
- * @returns The response from Hubspot's API
+ * @returns The response from the API
  * @throws Error if the submission fails
  */
 export async function submitToHubspot(formData: FormData) {
-  const portalId = "48329133";
-  const formId = "1c205d24-eded-40d3-a6aa-b8d76fd9fb77";
-  const url = `https://api.hubapi.com/submissions/v3/integration/submit/${portalId}/${formId}`;
-
-  if (!process.env.NEXT_PUBLIC_HUBSPOT_ACCESS_TOKEN) {
-    throw new Error('Hubspot access token is not configured');
-  }
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_ACCESS_TOKEN}`
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        fields: [
-          { name: 'firstname', value: formData.firstName },
-          { name: 'lastname', value: formData.lastName },
-          { name: 'email', value: formData.email },
-          { name: 'phone', value: formData.phone || '' },
-          { name: 'company', value: formData.company || '' },
-          { name: 'how_did_you_hear_about_us', value: formData.source },
-          { name: 'project_details', value: formData.projectDetails }
-        ],
-        context: {
-          pageUri: window.location.href,
-          pageName: document.title
-        }
-      })
+      body: JSON.stringify(formData)
     });
 
     if (!response.ok) {
@@ -59,7 +36,7 @@ export async function submitToHubspot(formData: FormData) {
 
     return response.json();
   } catch (error) {
-    console.error('Error submitting form to Hubspot:', error);
+    console.error('Error submitting form:', error);
     throw error;
   }
 }
