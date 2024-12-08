@@ -12,8 +12,8 @@ const features = [
 export function AboutSection() {
   return (
     <section id="about" className="py-20">
-      <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
