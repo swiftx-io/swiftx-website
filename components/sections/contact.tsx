@@ -1,16 +1,66 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from "react";
+import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from 'lucide-react';
 
+declare global {
+  interface Window {
+    hbspt?: {
+      forms: {
+        create: (config: {
+          region: string;
+          portalId: string;
+          formId: string;
+          target: string;
+          onFormReady?: (form: any) => void;
+        }) => void;
+      };
+    };
+  }
+}
+
 export function ContactSection() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-  };
+  const [isFormLoading, setIsFormLoading] = useState(true);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const initForm = () => {
+      if (window.hbspt) {
+        try {
+          window.hbspt.forms.create({
+            region: "na1",
+            portalId: "48329133",
+            formId: "1HCBdJO3tQNOmqrjXb9n7dwsruzx",
+            target: '#hubspot-form-container',
+            onFormReady: (form: any) => {
+              setIsFormLoading(false);
+              const formElement = document.querySelector('#hubspot-form-container form');
+              if (formElement) {
+                formElement.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-6');
+              }
+            },
+          });
+        } catch (error) {
+          setFormError("Failed to load the form. Please try again later.");
+          setIsFormLoading(false);
+        }
+      }
+    };
+
+    if (window.hbspt) {
+      initForm();
+    } else {
+      const checkScript = setInterval(() => {
+        if (window.hbspt) {
+          clearInterval(checkScript);
+          initForm();
+        }
+      }, 100);
+
+      return () => clearInterval(checkScript);
+    }
+  }, []);
 
   return (
     <section id="contact" className="py-20 bg-muted/50">
@@ -18,8 +68,8 @@ export function ContactSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Get in Touch</h2>
           <p className="text-muted-foreground">
-            Have a project in mind? We&apos;d love to hear from you. Send us a message and
-            we&apos;ll respond as soon as possible.
+            Have a project in mind? We&apos;d love to hear from you. Request a free estimate
+            and we&apos;ll respond as soon as possible.
           </p>
         </div>
 
@@ -54,29 +104,17 @@ export function ContactSection() {
         </div>
 
         <Card className="mt-12 p-8">
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="text-sm font-medium mb-2 block">Name</label>
-              <Input placeholder="Your name" />
+          {isFormLoading && (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">Loading form...</p>
             </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Email</label>
-              <Input type="email" placeholder="your@email.com" />
+          )}
+          {formError && (
+            <div className="text-center py-8 text-red-500">
+              <p>{formError}</p>
             </div>
-            <div className="md:col-span-2">
-              <label className="text-sm font-medium mb-2 block">Subject</label>
-              <Input placeholder="How can we help?" />
-            </div>
-            <div className="md:col-span-2">
-              <label className="text-sm font-medium mb-2 block">Message</label>
-              <Textarea placeholder="Tell us about your project" className="min-h-[150px]" />
-            </div>
-            <div className="md:col-span-2">
-              <Button type="submit" size="lg" className="w-full md:w-auto">
-                Send Message
-              </Button>
-            </div>
-          </form>
+          )}
+          <div id="hubspot-form-container" className="min-h-[400px]"></div>
         </Card>
       </div>
     </section>
