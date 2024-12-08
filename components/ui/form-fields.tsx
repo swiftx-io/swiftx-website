@@ -8,27 +8,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Control, ControllerRenderProps } from 'react-hook-form';
 import { ContactFormData } from '@/lib/schemas/contact-form';
 
-interface BaseFormFieldProps<T> {
-  control: Control<ContactFormData>;
-  name: keyof ContactFormData;
-  label: string;
-  placeholder: string;
-  required?: boolean;
-  className?: string;
-  children: (
+interface BaseFormFieldProps {
+  readonly control: Control<ContactFormData>;
+  readonly name: keyof ContactFormData;
+  readonly label: string;
+  readonly placeholder: string;
+  readonly required?: boolean;
+  readonly className?: string;
+  readonly children: (
     field: ControllerRenderProps<ContactFormData, keyof ContactFormData>
   ) => React.ReactNode;
 }
 
-function BaseFormField<T>({
+function BaseFormField({
   control,
   name,
   label,
-  placeholder,
   required = false,
   className,
   children,
-}: BaseFormFieldProps<T>) {
+}: BaseFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -47,16 +46,16 @@ function BaseFormField<T>({
   );
 }
 
-interface InputFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
-  type?: 'text' | 'email' | 'tel';
+interface InputFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+  readonly type?: 'text' | 'email' | 'tel';
 }
 
-interface TextareaFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
-  rows?: number;
+interface TextareaFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+  readonly rows?: number;
 }
 
-interface SelectFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
-  options: { value: string; label: string }[];
+interface SelectFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+  readonly options: { value: string; label: string }[];
 }
 
 export function CustomInputField({ type = 'text', ...props }: InputFormFieldProps) {
