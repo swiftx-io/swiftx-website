@@ -2,28 +2,13 @@
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { contactFormSchema, type ContactFormData } from '@/lib/schemas/contact-form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { CustomInputField, CustomTextareaField, CustomSelectField } from '@/components/ui/form-fields';
 
 export function ContactSection() {
   const form = useForm<ContactFormData>({
@@ -114,110 +99,61 @@ export function ContactSection() {
               onSubmit={form.handleSubmit(onSubmit)}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              <FormField
+              <CustomInputField
                 control={form.control}
                 name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="First Name"
+                placeholder="John"
+                required
               />
-              <FormField
+              <CustomInputField
                 control={form.control}
                 name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Last Name"
+                placeholder="Doe"
+                required
               />
-              <FormField
+              <CustomInputField
                 control={form.control}
                 name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email *</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="john@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Email"
+                placeholder="john@example.com"
+                type="email"
+                required
               />
-              <FormField
+              <CustomInputField
                 control={form.control}
                 name="phoneNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Phone Number"
+                placeholder="+1 (555) 000-0000"
+                type="tel"
               />
-              <FormField
+              <CustomInputField
                 control={form.control}
                 name="companyName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Company Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Acme Inc." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Company Name"
+                placeholder="Acme Inc."
               />
-              <FormField
+              <CustomSelectField
                 control={form.control}
                 name="howDidYouHear"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>How Did You Hear About Us? *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select an option" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="search">Search Engine</SelectItem>
-                        <SelectItem value="social">Social Media</SelectItem>
-                        <SelectItem value="referral">Referral</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="How Did You Hear About Us?"
+                placeholder="Select an option"
+                required
+                options={[
+                  { value: 'search', label: 'Search Engine' },
+                  { value: 'social', label: 'Social Media' },
+                  { value: 'referral', label: 'Referral' },
+                  { value: 'other', label: 'Other' },
+                ]}
               />
-              <FormField
+              <CustomTextareaField
                 control={form.control}
                 name="projectDescription"
-                render={({ field }) => (
-                  <FormItem className="md:col-span-2">
-                    <FormLabel>Tell Us More About the Project *</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Please describe your project requirements and goals..."
-                        className="min-h-[150px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Tell Us More About the Project"
+                placeholder="Please describe your project requirements and goals..."
+                required
+                className="md:col-span-2"
               />
               <div className="md:col-span-2">
                 <Button type="submit" size="lg" className="w-full md:w-auto">
