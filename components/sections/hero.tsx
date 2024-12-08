@@ -5,7 +5,7 @@ export function HeroSection() {
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
             Transform Your Ideas Into
             <span className="gradient-text"> Powerful Software</span>
