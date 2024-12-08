@@ -1,20 +1,22 @@
 'use client';
 
-import { useEffect, useState } from "react";
-import { Card } from "@/components/ui/card";
+import { useEffect, useState } from 'react';
+import { Card } from '@/components/ui/card';
 import { Mail, Phone, MapPin } from 'lucide-react';
+
+interface HubspotFormConfig {
+  region: string;
+  portalId: string;
+  formId: string;
+  target: string;
+  onFormReady?: (form: HTMLFormElement) => void;
+}
 
 declare global {
   interface Window {
     hbspt?: {
       forms: {
-        create: (config: {
-          region: string;
-          portalId: string;
-          formId: string;
-          target: string;
-          onFormReady?: (form: any) => void;
-        }) => void;
+        create: (config: HubspotFormConfig) => void;
       };
     };
   }
@@ -29,11 +31,11 @@ export function ContactSection() {
       if (window.hbspt) {
         try {
           window.hbspt.forms.create({
-            region: "na1",
-            portalId: "48329133",
-            formId: "1HCBdJO3tQNOmqrjXb9n7dwsruzx",
+            region: 'na1',
+            portalId: '48329133',
+            formId: '1c205d24-eded-40d3-a6aa-b8d76fd9fb77',
             target: '#hubspot-form-container',
-            onFormReady: (form: any) => {
+            onFormReady: (_: HTMLFormElement) => {
               setIsFormLoading(false);
               const formElement = document.querySelector('#hubspot-form-container form');
               if (formElement) {
@@ -42,7 +44,7 @@ export function ContactSection() {
             },
           });
         } catch (error) {
-          setFormError("Failed to load the form. Please try again later.");
+          setFormError('Failed to load the form. Please try again later.');
           setIsFormLoading(false);
         }
       }
@@ -68,8 +70,8 @@ export function ContactSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Get in Touch</h2>
           <p className="text-muted-foreground">
-            Have a project in mind? We&apos;d love to hear from you. Request a free estimate
-            and we&apos;ll respond as soon as possible.
+            Have a project in mind? We&apos;d love to hear from you. Request a free estimate and
+            we&apos;ll respond as soon as possible.
           </p>
         </div>
 
