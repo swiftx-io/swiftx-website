@@ -5,120 +5,93 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from './form
 import { Input } from './input';
 import { Textarea } from './textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
-import { Control } from 'react-hook-form';
+import { Control, ControllerRenderProps } from 'react-hook-form';
 import { ContactFormData } from '@/lib/schemas/contact-form';
 
-interface BaseFormFieldProps {
+interface BaseFormFieldProps<T> {
   control: Control<ContactFormData>;
   name: keyof ContactFormData;
   label: string;
   placeholder: string;
   required?: boolean;
+  className?: string;
+  children: (
+    field: ControllerRenderProps<ContactFormData, keyof ContactFormData>
+  ) => React.ReactNode;
 }
 
-interface InputFormFieldProps extends BaseFormFieldProps {
+function BaseFormField<T>({
+  control,
+  name,
+  label,
+  placeholder,
+  required = false,
+  className,
+  children,
+}: BaseFormFieldProps<T>) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          <FormLabel>
+            {label}
+            {required && ' *'}
+          </FormLabel>
+          <FormControl>{children(field)}</FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+interface InputFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
   type?: 'text' | 'email' | 'tel';
 }
 
-interface TextareaFormFieldProps extends BaseFormFieldProps {
+interface TextareaFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
   rows?: number;
 }
 
-interface SelectFormFieldProps extends BaseFormFieldProps {
+interface SelectFormFieldProps extends Omit<BaseFormFieldProps<string>, 'children'> {
   options: { value: string; label: string }[];
 }
 
-export function CustomInputField({
-  control,
-  name,
-  label,
-  placeholder,
-  required = false,
-  type = 'text',
-}: InputFormFieldProps) {
+export function CustomInputField({ type = 'text', ...props }: InputFormFieldProps) {
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>
-            {label}
-            {required && ' *'}
-          </FormLabel>
-          <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+    <BaseFormField {...props}>
+      {field => <Input type={type} {...field} placeholder={props.placeholder} />}
+    </BaseFormField>
   );
 }
 
-export function CustomTextareaField({
-  control,
-  name,
-  label,
-  placeholder,
-  required = false,
-  rows = 4,
-}: TextareaFormFieldProps) {
+export function CustomTextareaField({ rows = 4, ...props }: TextareaFormFieldProps) {
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>
-            {label}
-            {required && ' *'}
-          </FormLabel>
-          <FormControl>
-            <Textarea placeholder={placeholder} rows={rows} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+    <BaseFormField {...props}>
+      {field => <Textarea rows={rows} {...field} placeholder={props.placeholder} />}
+    </BaseFormField>
   );
 }
 
-export function CustomSelectField({
-  control,
-  name,
-  label,
-  placeholder,
-  required = false,
-  options,
-}: SelectFormFieldProps) {
+export function CustomSelectField({ options, ...props }: SelectFormFieldProps) {
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>
-            {label}
-            {required && ' *'}
-          </FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
-            <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {options.map(option => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <FormMessage />
-        </FormItem>
+    <BaseFormField {...props}>
+      {field => (
+        <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <SelectTrigger>
+            <SelectValue placeholder={props.placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {options.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       )}
-    />
+    </BaseFormField>
   );
 }
