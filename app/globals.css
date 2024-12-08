@@ -65,3 +65,20 @@
 .gradient-bg {
   @apply bg-gradient-to-r from-[#40C9FF] to-[#9B5DE5];
 }
+
+.floating-dots {
+  @apply absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black;
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-size: 16px 16px;
+  animation: float 15s linear infinite;
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%);
+}
+
+@keyframes float {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 16px 16px;
+  }
+}
