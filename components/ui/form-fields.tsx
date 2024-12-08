@@ -34,7 +34,7 @@ export function CustomInputField({
   label,
   placeholder,
   required = false,
-  type = 'text'
+  type = 'text',
 }: InputFormFieldProps) {
   return (
     <FormField
@@ -42,7 +42,10 @@ export function CustomInputField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}{required && ' *'}</FormLabel>
+          <FormLabel>
+            {label}
+            {required && ' *'}
+          </FormLabel>
           <FormControl>
             <Input type={type} placeholder={placeholder} {...field} />
           </FormControl>
@@ -59,7 +62,7 @@ export function CustomTextareaField({
   label,
   placeholder,
   required = false,
-  rows = 4
+  rows = 4,
 }: TextareaFormFieldProps) {
   return (
     <FormField
@@ -67,7 +70,10 @@ export function CustomTextareaField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}{required && ' *'}</FormLabel>
+          <FormLabel>
+            {label}
+            {required && ' *'}
+          </FormLabel>
           <FormControl>
             <Textarea placeholder={placeholder} rows={rows} {...field} />
           </FormControl>
@@ -84,7 +90,7 @@ export function CustomSelectField({
   label,
   placeholder,
   required = false,
-  options
+  options,
 }: SelectFormFieldProps) {
   return (
     <FormField
@@ -92,7 +98,10 @@ export function CustomSelectField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}{required && ' *'}</FormLabel>
+          <FormLabel>
+            {label}
+            {required && ' *'}
+          </FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
@@ -100,7 +109,7 @@ export function CustomSelectField({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {options.map((option) => (
+              {options.map(option => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
