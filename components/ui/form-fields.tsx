@@ -12,7 +12,6 @@ interface BaseFormFieldProps {
   readonly control: Control<ContactFormData>;
   readonly name: keyof ContactFormData;
   readonly label: string;
-  readonly placeholder: string;
   readonly required?: boolean;
   readonly className?: string;
   readonly children: (
@@ -48,39 +47,42 @@ function BaseFormField({
 
 interface InputFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
   readonly type?: 'text' | 'email' | 'tel';
+  readonly placeholder?: string;
 }
 
 interface TextareaFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
   readonly rows?: number;
+  readonly placeholder?: string;
 }
 
 interface SelectFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
   readonly options: { value: string; label: string }[];
+  readonly placeholder?: string;
 }
 
-export function CustomInputField({ type = 'text', ...props }: InputFormFieldProps) {
+export function CustomInputField({ type = 'text', placeholder, ...props }: InputFormFieldProps) {
   return (
     <BaseFormField {...props}>
-      {field => <Input type={type} {...field} placeholder={props.placeholder} />}
+      {field => <Input type={type} {...field} placeholder={placeholder} />}
     </BaseFormField>
   );
 }
 
-export function CustomTextareaField({ rows = 4, ...props }: TextareaFormFieldProps) {
+export function CustomTextareaField({ rows = 4, placeholder, ...props }: TextareaFormFieldProps) {
   return (
     <BaseFormField {...props}>
-      {field => <Textarea rows={rows} {...field} placeholder={props.placeholder} />}
+      {field => <Textarea rows={rows} {...field} placeholder={placeholder} />}
     </BaseFormField>
   );
 }
 
-export function CustomSelectField({ options, ...props }: SelectFormFieldProps) {
+export function CustomSelectField({ options, placeholder, ...props }: SelectFormFieldProps) {
   return (
     <BaseFormField {...props}>
       {field => (
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <SelectTrigger>
-            <SelectValue placeholder={props.placeholder} />
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
             {options.map(option => (
