@@ -4,4 +4,4 @@ reviews:
   bots_to_include:
     - "github-actions[bot]"
     - "dependabot[bot]"
-    - "devin-ai-integration[bot][bot]"
+    - "devin-ai-integration[bot]"
