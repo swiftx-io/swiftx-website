@@ -137,10 +137,9 @@ describe('useToast', () => {
 
   it('should handle onOpenChange callback', () => {
     const { result } = renderHook(() => useToast());
-    let toastResponse: ToastResponse;
 
     reactHookAct(() => {
-      toastResponse = result.current.toast(mockToastData);
+      result.current.toast(mockToastData);
     });
 
     reactHookAct(() => {
@@ -152,9 +151,13 @@ describe('useToast', () => {
 
   it('should handle existing timeout for toast removal', () => {
     const { result } = renderHook(() => useToast());
-    const toastId = result.current.toast(mockToastData).id;
+    let toastId: string;
 
-    // Try to add the same toast to removal queue
+    reactHookAct(() => {
+      const response = result.current.toast(mockToastData);
+      toastId = response.id;
+    });
+
     reactHookAct(() => {
       result.current.dismiss(toastId);
       result.current.dismiss(toastId);
