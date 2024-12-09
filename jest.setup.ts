@@ -18,3 +18,22 @@ jest.mock('next/navigation', () => ({
     };
   },
 }));
+
+// Mock Next.js server components
+jest.mock('next/server', () => {
+  const originalModule = jest.requireActual('next/server');
+  return {
+    ...originalModule,
+    NextResponse: {
+      json: (body: any, init?: ResponseInit) => {
+        return new Response(JSON.stringify(body), {
+          ...init,
+          headers: {
+            'content-type': 'application/json',
+            ...(init?.headers || {}),
+          },
+        });
+      },
+    },
+  };
+});
