@@ -1,5 +1,6 @@
 import { TextEncoder, TextDecoder } from 'util';
 import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as NodeHeaders } from 'node-fetch';
+import { webcrypto } from 'node:crypto';
 
 // Setup polyfills
 (global as any).TextEncoder = TextEncoder;
@@ -8,6 +9,7 @@ import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as
 (global as any).Request = NodeRequest;
 (global as any).Response = NodeResponse;
 (global as any).Headers = NodeHeaders;
+(global as any).crypto = webcrypto;
 
 // Mock BroadcastChannel for MSW
 class MockBroadcastChannel {

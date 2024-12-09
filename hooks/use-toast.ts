@@ -134,7 +134,7 @@ function useToast() {
 
   const toast = React.useCallback(
     ({ ...props }: Omit<ToasterToast, 'id'>) => {
-      const id = Math.random().toString(36).slice(2);
+      const id = crypto.randomUUID();
 
       const update = (props: Partial<ToasterToast>) =>
         dispatch({
