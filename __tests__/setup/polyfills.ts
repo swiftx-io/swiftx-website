@@ -11,11 +11,46 @@ import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as
 
 // Mock BroadcastChannel for MSW
 class MockBroadcastChannel {
-  constructor(channel: string) {}
-  postMessage(message: any) {}
-  addEventListener(type: string, listener: EventListener) {}
-  removeEventListener(type: string, listener: EventListener) {}
-  close() {}
+  private channel: string;
+  private listeners: Map<string, Set<EventListener>>;
+  private closed: boolean;
+
+  constructor(channel: string) {
+    this.channel = channel;
+    this.listeners = new Map();
+    this.closed = false;
+  }
+
+  postMessage(message: any) {
+    if (this.closed) return;
+
+    const event = new MessageEvent('message', {
+      data: message,
+      origin: location.origin,
+    });
+
+    const messageListeners = this.listeners.get('message');
+    messageListeners?.forEach(listener => listener(event));
+  }
+
+  addEventListener(type: string, listener: EventListener) {
+    if (this.closed) return;
+
+    if (!this.listeners.has(type)) {
+      this.listeners.set(type, new Set());
+    }
+    this.listeners.get(type)?.add(listener);
+  }
+
+  removeEventListener(type: string, listener: EventListener) {
+    if (this.closed) return;
+    this.listeners.get(type)?.delete(listener);
+  }
+
+  close() {
+    this.closed = true;
+    this.listeners.clear();
+  }
 }
 
 (global as any).BroadcastChannel = MockBroadcastChannel;
