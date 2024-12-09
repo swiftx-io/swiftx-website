@@ -29,7 +29,14 @@ export function Header() {
             Contact
           </Link>
           <ModeToggle />
-          <Button className="bg-primary text-white hover:opacity-90">Get Started</Button>
+          <Button
+            className="bg-primary text-white hover:opacity-90"
+            onClick={() =>
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+            }
+          >
+            Schedule a free expert session
+          </Button>
         </nav>
 
         <div className="md:hidden">
@@ -56,7 +63,14 @@ export function Header() {
             </Link>
             <div className="flex items-center gap-4">
               <ModeToggle />
-              <Button className="w-full bg-primary text-white hover:opacity-90">Get Started</Button>
+              <Button
+                className="w-full bg-primary text-white hover:opacity-90"
+                onClick={() =>
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                Schedule a free expert session
+              </Button>
             </div>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 
 const features = [
@@ -41,8 +40,6 @@ export function AboutSection() {
                 </li>
               ))}
             </ul>
-
-            <Button size="lg">Learn More About Us</Button>
           </div>
         </div>
       </div>

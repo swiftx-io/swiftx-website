@@ -68,7 +68,7 @@ export function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <Card className="p-6">
+          <Card className="p-6 transition-all duration-300 hover:shadow-lg hover:scale-105">
             <div className="flex items-center gap-4 mb-4">
               <Mail className="h-6 w-6 text-primary" />
               <h3 className="font-semibold">Email Us</h3>
@@ -76,7 +76,7 @@ export function ContactSection() {
             <p className="text-sm text-muted-foreground">info@swiftx.io</p>
           </Card>
 
-          <Card className="p-6">
+          <Card className="p-6 transition-all duration-300 hover:shadow-lg hover:scale-105">
             <div className="flex items-center gap-4 mb-4">
               <Phone className="h-6 w-6 text-primary" />
               <h3 className="font-semibold">Call Us</h3>
@@ -84,7 +84,7 @@ export function ContactSection() {
             <p className="text-sm text-muted-foreground">+201276373205</p>
           </Card>
 
-          <Card className="p-6">
+          <Card className="p-6 transition-all duration-300 hover:shadow-lg hover:scale-105">
             <div className="flex items-center gap-4 mb-4">
               <MapPin className="h-6 w-6 text-primary" />
               <h3 className="font-semibold">Visit Us</h3>
