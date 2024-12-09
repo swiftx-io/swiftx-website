@@ -135,4 +135,55 @@ describe('useToast', () => {
     // Toast should be removed
     expect(result.current.toasts).toHaveLength(0);
   });
+
+  it('should handle onOpenChange callback', () => {
+    const { result } = renderHook(() => useToast());
+    let toastResponse: ToastResponse;
+
+    act(() => {
+      toastResponse = result.current.toast(mockToastData);
+    });
+
+    act(() => {
+      result.current.toasts[0].onOpenChange?.(false);
+    });
+
+    expect(result.current.toasts[0].open).toBe(false);
+  });
+
+  it('should handle existing timeout for toast removal', () => {
+    const { result } = renderHook(() => useToast());
+    const toastId = result.current.toast(mockToastData).id;
+
+    // Try to add the same toast to removal queue
+    act(() => {
+      result.current.dismiss(toastId);
+      result.current.dismiss(toastId);
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+
+    expect(result.current.toasts).toHaveLength(0);
+  });
+
+  it('should handle remove toast action without toastId', () => {
+    const { result } = renderHook(() => useToast());
+
+    act(() => {
+      result.current.toast({ title: 'Toast 1' });
+      result.current.toast({ title: 'Toast 2' });
+    });
+
+    expect(result.current.toasts).toHaveLength(2);
+
+    // Remove all toasts
+    act(() => {
+      result.current.dismiss();
+      jest.advanceTimersByTime(3000);
+    });
+
+    expect(result.current.toasts).toHaveLength(0);
+  });
 });
