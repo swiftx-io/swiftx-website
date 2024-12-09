@@ -15,6 +15,19 @@ type HubSpotContactProperties = {
 
 export const handlers = [
   rest.post('https://api.hubapi.com/crm/v3/objects/contacts', async (req, res, ctx) => {
+    // Check for invalid token
+    const authHeader = req.headers.get('Authorization');
+    if (authHeader !== 'Bearer test-token') {
+      return res(
+        ctx.status(500),
+        ctx.json({
+          status: 'error',
+          message: 'Invalid access token',
+          correlationId: 'test-correlation-id'
+        })
+      );
+    }
+
     try {
       const body = (await req.json()) as HubSpotContactProperties;
 
