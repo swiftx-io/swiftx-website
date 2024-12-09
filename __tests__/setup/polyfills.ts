@@ -3,12 +3,12 @@ import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as
 import { webcrypto, randomUUID } from 'node:crypto';
 
 // Setup polyfills
-(global as any).TextEncoder = TextEncoder;
-(global as any).TextDecoder = TextDecoder;
-(global as any).fetch = nodeFetch;
-(global as any).Request = NodeRequest;
-(global as any).Response = NodeResponse;
-(global as any).Headers = NodeHeaders;
+(global as unknown as { TextEncoder: typeof TextEncoder }).TextEncoder = TextEncoder;
+(global as unknown as { TextDecoder: typeof TextDecoder }).TextDecoder = TextDecoder;
+(global as unknown as { fetch: typeof nodeFetch }).fetch = nodeFetch;
+(global as unknown as { Request: typeof NodeRequest }).Request = NodeRequest;
+(global as unknown as { Response: typeof NodeResponse }).Response = NodeResponse;
+(global as unknown as { Headers: typeof NodeHeaders }).Headers = NodeHeaders;
 
 // Setup crypto with randomUUID
 const cryptoWithUUID = {
@@ -34,7 +34,7 @@ class MockBroadcastChannel {
     this.closed = false;
   }
 
-  postMessage(message: any) {
+  postMessage(message: MessageEvent['data']) {
     if (this.closed) return;
 
     const event = new MessageEvent('message', {
@@ -66,4 +66,4 @@ class MockBroadcastChannel {
   }
 }
 
-(global as any).BroadcastChannel = MockBroadcastChannel;
+(global as unknown as { BroadcastChannel: typeof MockBroadcastChannel }).BroadcastChannel = MockBroadcastChannel;

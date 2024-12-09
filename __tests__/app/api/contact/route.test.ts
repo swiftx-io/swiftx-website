@@ -76,7 +76,7 @@ describe('Contact API Route', () => {
     const data = await response.json();
     expect(data.error).toBe('Invalid form data');
     expect(data.details).toBeDefined();
-    expect(data.details.some((issue: any) => issue.path.includes('email'))).toBe(true);
+    expect(data.details.some((issue: import('zod').ZodIssue) => issue.path.includes('email'))).toBe(true);
   });
 
   it('should handle HubSpot API errors', async () => {
