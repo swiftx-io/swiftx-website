@@ -11,7 +11,40 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               Transforming ideas into powerful software solutions.
             </p>
-            <div className="space-y-2">
+          </div>
+
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold mb-4">Connect With Us</h3>
+              <div className="flex gap-4">
+                <a
+                  href="https://facebook.com/swiftx-io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/swiftx.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://eg.linkedin.com/company/swiftxio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+
+            <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
                 <a href="tel:+201276373205" className="hover:text-primary transition-colors">
@@ -28,36 +61,6 @@ export function Footer() {
                 <MapPin className="h-4 w-4" />
                 <span>6056 El-Merag city, Zahraa El-Maadi, Cairo, Egypt</span>
               </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-semibold">Connect With Us</h3>
-            <div className="flex gap-4">
-              <a
-                href="https://facebook.com/swiftx-io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.instagram.com/swiftx.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://eg.linkedin.com/company/swiftxio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
             </div>
           </div>
         </div>

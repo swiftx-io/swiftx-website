@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'SwiftX - Modern Software Solutions',
   description: 'Professional software development services for modern businesses',
   icons: {
-    icon: '/logo-light.png',
+    icon: '/light_mode_logo.png',
   },
 };
 
