@@ -164,9 +164,17 @@ describe('useToast', () => {
 
     expect(result.current.toasts).toHaveLength(2);
 
+    // First act: dismiss toasts and update state
     await act(async () => {
       result.current.dismiss();
-      jest.runOnlyPendingTimers(); // Run pending state updates first
+      jest.runOnlyPendingTimers();
+    });
+
+    // Verify toasts are marked as closed
+    expect(result.current.toasts.every(t => !t.open)).toBe(true);
+
+    // Second act: allow useEffect to clean up
+    await act(async () => {
       jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
     });
 
@@ -175,10 +183,11 @@ describe('useToast', () => {
 
   it('should handle error in toast callback', async () => {
     const { result } = renderHook(() => useToast());
+    const errorMessage = 'Test error';
     const errorToast = {
       ...mockToastData,
       onOpenChange: () => {
-        throw new Error('Test error');
+        throw new Error(errorMessage);
       },
     };
 
@@ -187,14 +196,11 @@ describe('useToast', () => {
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    let error: Error | undefined;
-    try {
+    expect(() => {
       result.current.toasts[0].onOpenChange?.(false);
-    } catch (e) {
-      error = e as Error;
-    }
-    expect(error?.message).toBe('Test error');
+    }).toThrow(errorMessage);
   });
+});
 
   it('should handle multiple dismiss calls for same toast', async () => {
     const { result } = renderHook(() => useToast());
