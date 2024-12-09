@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { useToast, type ToasterToast, TOAST_REMOVE_DELAY } from '@/hooks/use-toast';
 
@@ -295,31 +294,65 @@ describe('useToast', () => {
     expect(result.current.toasts[2].title).toBe('First');
   });
 
-  it('should cleanup timeouts on unmount', async () => {
+  it('should handle multiple dismiss calls with different timing', async () => {
+    jest.useFakeTimers();
+    const { result } = renderHook(() => useToast());
+
+    // Create a toast and dismiss it
+    await act(async () => {
+      const toast = result.current.toast({ title: 'Test Toast' });
+      result.current.dismiss(toast.id);
+    });
+
+    // Fast forward halfway through the removal delay
+    jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
+
+    // Dismiss again before the first timeout completes
+    await act(async () => {
+      result.current.dismiss(result.current.toasts[0].id);
+    });
+
+    // Fast forward the remaining time
+    jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
+
+    // Toast should be removed exactly once
+    expect(result.current.toasts).toHaveLength(0);
+
+    jest.useRealTimers();
+  });
+
+  it('should handle cleanup on unmount with pending timeouts', async () => {
+    jest.useFakeTimers();
     const { result, unmount } = renderHook(() => useToast());
 
+    // Create multiple toasts and dismiss them
     await act(async () => {
-      result.current.toast(mockToastData);
-      result.current.toast({ title: 'Second Toast' });
+      const toast1 = result.current.toast({ title: 'Toast 1' });
+      const toast2 = result.current.toast({ title: 'Toast 2' });
+      result.current.dismiss(toast1.id);
+      result.current.dismiss(toast2.id);
     });
 
-    await act(async () => {
-      result.current.dismiss();
-    });
+    // Fast forward halfway through the removal delay
+    jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
 
-    // Unmount should clear all timeouts
+    // Unmount before timeouts complete
     unmount();
 
-    // All timeouts should be cleared, we can verify this by checking if new toasts can be added
+    // Create a new hook instance to verify clean state
     const { result: newResult } = renderHook(() => useToast());
     await act(async () => {
       newResult.current.toast({ title: 'New Toast' });
     });
 
     expect(newResult.current.toasts).toHaveLength(1);
+    expect(newResult.current.toasts[0].title).toBe('New Toast');
+
+    jest.useRealTimers();
   });
 
-  it('should handle early return in addToRemoveQueue', async () => {
+  it('should handle invalid properties in update', async () => {
+    jest.useFakeTimers();
     const { result } = renderHook(() => useToast());
     let toastResponse: ToastResponse;
 
@@ -327,21 +360,67 @@ describe('useToast', () => {
       toastResponse = result.current.toast(mockToastData);
     });
 
-    // First dismiss will set up the timeout
+    const originalToast = { ...result.current.toasts[0] };
+
     await act(async () => {
-      toastResponse.dismiss();
+      // @ts-expect-error - Testing invalid property
+      toastResponse.update({ invalidProp: 'test', title: 'Updated Title' });
     });
 
-    // Second dismiss should trigger early return in addToRemoveQueue
+    const updatedToast = result.current.toasts[0];
+
+    // Verify that valid properties are updated
+    expect(updatedToast.title).toBe('Updated Title');
+    // Verify that original properties are preserved
+    expect(updatedToast.description).toBe(originalToast.description);
+    expect(updatedToast.open).toBe(originalToast.open);
+    expect(updatedToast.id).toBe(originalToast.id);
+
+    // Verify that invalid properties are not added
+    expect(Object.keys(updatedToast)).not.toContain('invalidProp');
+
+    jest.useRealTimers();
+  });
+
+  it('should remove all toasts when dismissing with undefined toastId', async () => {
+    jest.useFakeTimers();
+    const { result } = renderHook(() => useToast());
+
+    // Add multiple toasts
     await act(async () => {
-      toastResponse.dismiss();
+      result.current.toast({ title: 'Toast 1' });
+      result.current.toast({ title: 'Toast 2' });
+      result.current.toast({ title: 'Toast 3' });
     });
 
-    // Wait for the original timeout to complete
+    expect(result.current.toasts).toHaveLength(3);
+
+    // Dismiss all toasts with undefined toastId
     await act(async () => {
+      result.current.dismiss(undefined);
+      // Fast forward to trigger the REMOVE_TOAST action
       jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
     });
 
+    // Verify all toasts are removed
     expect(result.current.toasts).toHaveLength(0);
+
+    jest.useRealTimers();
+  });
+
+  it('should handle crypto.randomUUID failure', async () => {
+    const { result } = renderHook(() => useToast());
+    const originalRandomUUID = crypto.randomUUID;
+    crypto.randomUUID = jest.fn().mockImplementation(() => {
+      throw new Error('Failed to generate UUID');
+    });
+
+    try {
+      await act(async () => {
+        expect(() => result.current.toast(mockToastData)).toThrow('Failed to generate UUID');
+      });
+    } finally {
+      crypto.randomUUID = originalRandomUUID;
+    }
   });
 });
