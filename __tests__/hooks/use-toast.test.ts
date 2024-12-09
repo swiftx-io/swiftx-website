@@ -166,6 +166,7 @@ describe('useToast', () => {
 
     await act(async () => {
       result.current.dismiss();
+      jest.runOnlyPendingTimers(); // Run pending state updates first
       jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
     });
 
@@ -186,7 +187,13 @@ describe('useToast', () => {
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(() => result.current.toasts[0].onOpenChange?.(false)).toThrow('Test error');
+    let error: Error | undefined;
+    try {
+      result.current.toasts[0].onOpenChange?.(false);
+    } catch (e) {
+      error = e as Error;
+    }
+    expect(error?.message).toBe('Test error');
   });
 
   it('should handle multiple dismiss calls for same toast', async () => {
