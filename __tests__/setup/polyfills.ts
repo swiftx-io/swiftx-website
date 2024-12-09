@@ -11,8 +11,8 @@ import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as
 
 // Mock BroadcastChannel for MSW
 class MockBroadcastChannel {
-  private channel: string;
-  private listeners: Map<string, Set<EventListener>>;
+  private readonly channel: string;
+  private readonly listeners: Map<string, Set<EventListener>>;
   private closed: boolean;
 
   constructor(channel: string) {
