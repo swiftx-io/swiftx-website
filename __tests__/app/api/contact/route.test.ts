@@ -151,14 +151,13 @@ describe('Contact API Route', () => {
     expect(data.message).toBe('Form submitted successfully');
   });
 
-  it('should handle custom error types', async () => {
+  it('should handle custom error types with message', async () => {
     const customError = new TypeError('Custom type error');
     const request = new NextRequest('http://localhost/api/contact', {
       method: 'POST',
       body: JSON.stringify(validFormData),
     });
 
-    // Mock fetch to throw the custom error
     global.fetch = jest.fn().mockRejectedValue(customError);
 
     const response = await POST(request);
@@ -168,7 +167,25 @@ describe('Contact API Route', () => {
     expect(data.error).toBe('Failed to submit form');
     expect(data.message).toBe('Custom type error');
 
-    // Restore fetch
+    jest.restoreAllMocks();
+  });
+
+  it('should handle errors without message property', async () => {
+    const errorWithoutMessage = { code: 'UNKNOWN_ERROR' };
+    const request = new NextRequest('http://localhost/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(validFormData),
+    });
+
+    global.fetch = jest.fn().mockRejectedValue(errorWithoutMessage);
+
+    const response = await POST(request);
+    expect(response.status).toBe(500);
+
+    const data = await response.json();
+    expect(data.error).toBe('Failed to submit form');
+    expect(data.message).toBe('Unknown error');
+
     jest.restoreAllMocks();
   });
 });
