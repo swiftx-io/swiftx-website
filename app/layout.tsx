@@ -11,13 +11,16 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'SwiftX - Modern Software Solutions',
   description: 'Professional software development services for modern businesses',
+  icons: {
+    icon: '/light_mode_logo.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <Header />
           <main>{children}</main>
           <Footer />

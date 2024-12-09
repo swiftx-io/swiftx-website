@@ -1,20 +1,25 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 export function Logo() {
+  const { theme } = useTheme();
+  const logoSrc = theme === 'light' ? '/light_mode_logo.png' : '/dark_mode_logo.png';
+
   return (
-    <Link href="/" className="flex items-center gap-2">
-      <div className="relative w-8 h-8">
+    <Link href="/" className="flex items-center">
+      <div className="relative w-[5.2rem] h-[5.2rem]">
         <Image
-          src="/logo.png"
+          src={logoSrc}
           alt="SwiftX Logo"
-          width={32}
-          height={32}
+          width={83}
+          height={83}
           className="object-contain"
           priority
         />
       </div>
-      <span className="text-xl font-bold text-[#0A0B26] dark:text-white">SwiftX</span>
     </Link>
   );
 }
