@@ -33,9 +33,21 @@ jobs:
     - name: Run tests with coverage
       run: |
         pnpm test:coverage
-        # Check if coverage is above 90%
-        COVERAGE=$(pnpm test:coverage | grep "All files" | awk '{print $2}' | tr -d '%')
-        if (( $(echo "$COVERAGE < 90" | bc -l) )); then
-          echo "Test coverage ($COVERAGE%) is below 90%"
+        # Check if all coverage metrics are above 90%
+        COVERAGE_OUTPUT=$(pnpm test:coverage | grep "All files")
+        STATEMENTS=$(echo "$COVERAGE_OUTPUT" | awk '{print $2}' | tr -d '%')
+        BRANCHES=$(echo "$COVERAGE_OUTPUT" | awk '{print $3}' | tr -d '%')
+        FUNCTIONS=$(echo "$COVERAGE_OUTPUT" | awk '{print $4}' | tr -d '%')
+        LINES=$(echo "$COVERAGE_OUTPUT" | awk '{print $5}' | tr -d '%')
+
+        if (( $(echo "$STATEMENTS < 90" | bc -l) )) || \
+           (( $(echo "$BRANCHES < 90" | bc -l) )) || \
+           (( $(echo "$FUNCTIONS < 90" | bc -l) )) || \
+           (( $(echo "$LINES < 90" | bc -l) )); then
+          echo "Test coverage below 90% threshold:"
+          echo "Statements: $STATEMENTS%"
+          echo "Branches: $BRANCHES%"
+          echo "Functions: $FUNCTIONS%"
+          echo "Lines: $LINES%"
           exit 1
         fi
