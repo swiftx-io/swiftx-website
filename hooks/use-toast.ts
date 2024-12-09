@@ -127,7 +127,7 @@ function useToast() {
 
   React.useEffect(() => {
     // Handle toast removal queue
-    state.toasts.forEach((toast) => {
+    state.toasts.forEach(toast => {
       if (!toast.open && !toastTimeouts.has(toast.id)) {
         addToRemoveQueue(toast.id, dispatch);
       }
@@ -135,7 +135,7 @@ function useToast() {
 
     // Cleanup function to clear all timeouts when unmounting
     return () => {
-      toastTimeouts.forEach((timeout) => {
+      toastTimeouts.forEach(timeout => {
         clearTimeout(timeout);
       });
       toastTimeouts.clear();
@@ -160,7 +160,7 @@ function useToast() {
           ...props,
           id,
           open: true,
-          onOpenChange: (open) => {
+          onOpenChange: open => {
             // Always call the original handler first to ensure error propagation
             props.onOpenChange?.(open);
             // Only dismiss if the toast is being closed
