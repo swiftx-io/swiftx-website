@@ -16,7 +16,14 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-primary">
+          <Link
+            href="/"
+            className="text-sm font-medium hover:text-primary"
+            onClick={e => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
             Home
           </Link>
           <Link href="#services" className="text-sm font-medium hover:text-primary">
@@ -49,7 +56,14 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <Link href="/" className="text-sm font-medium hover:text-primary">
+            <Link
+              href="/"
+              className="text-sm font-medium hover:text-primary"
+              onClick={e => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               Home
             </Link>
             <Link href="#services" className="text-sm font-medium hover:text-primary">
