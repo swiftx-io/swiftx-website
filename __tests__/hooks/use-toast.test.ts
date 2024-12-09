@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { renderHook } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { renderHook, act as reactHookAct } from '@testing-library/react';
 import { useToast, type ToasterToast } from '@/hooks/use-toast';
 
 type ToastResponse = {
@@ -27,7 +26,7 @@ describe('useToast', () => {
   it('should add toast', () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toast(mockToastData);
     });
 
@@ -39,7 +38,7 @@ describe('useToast', () => {
   it('should enforce toast limit of 3', () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toast({ title: 'Toast 1' });
       result.current.toast({ title: 'Toast 2' });
       result.current.toast({ title: 'Toast 3' });
@@ -56,11 +55,11 @@ describe('useToast', () => {
     const { result } = renderHook(() => useToast());
     let toastResponse: ToastResponse;
 
-    act(() => {
+    reactHookAct(() => {
       toastResponse = result.current.toast(mockToastData);
     });
 
-    act(() => {
+    reactHookAct(() => {
       toastResponse.update({ title: 'Updated Title' });
     });
 
@@ -72,11 +71,11 @@ describe('useToast', () => {
     const { result } = renderHook(() => useToast());
     let toastResponse: ToastResponse;
 
-    act(() => {
+    reactHookAct(() => {
       toastResponse = result.current.toast(mockToastData);
     });
 
-    act(() => {
+    reactHookAct(() => {
       toastResponse.dismiss();
     });
 
@@ -86,13 +85,13 @@ describe('useToast', () => {
   it('should dismiss all toasts', () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toast({ title: 'Toast 1' });
       result.current.toast({ title: 'Toast 2' });
       result.current.toast({ title: 'Toast 3' });
     });
 
-    act(() => {
+    reactHookAct(() => {
       result.current.dismiss();
     });
 
@@ -105,21 +104,21 @@ describe('useToast', () => {
     const { result } = renderHook(() => useToast());
 
     // Clear any existing toasts
-    act(() => {
+    reactHookAct(() => {
       result.current.toasts.forEach((toast) => {
         result.current.dismiss(toast.id);
       });
       jest.advanceTimersByTime(3000); // Clear the removal queue
     });
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toast(mockToastData);
     });
 
     expect(result.current.toasts).toHaveLength(1);
 
     // Dismiss the toast to trigger the removal delay
-    act(() => {
+    reactHookAct(() => {
       result.current.dismiss(result.current.toasts[0].id);
     });
 
@@ -128,7 +127,7 @@ describe('useToast', () => {
     expect(result.current.toasts[0].open).toBe(false);
 
     // Fast-forward past the removal delay
-    act(() => {
+    reactHookAct(() => {
       jest.advanceTimersByTime(3000);
     });
 
@@ -140,11 +139,11 @@ describe('useToast', () => {
     const { result } = renderHook(() => useToast());
     let toastResponse: ToastResponse;
 
-    act(() => {
+    reactHookAct(() => {
       toastResponse = result.current.toast(mockToastData);
     });
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toasts[0].onOpenChange?.(false);
     });
 
@@ -156,12 +155,12 @@ describe('useToast', () => {
     const toastId = result.current.toast(mockToastData).id;
 
     // Try to add the same toast to removal queue
-    act(() => {
+    reactHookAct(() => {
       result.current.dismiss(toastId);
       result.current.dismiss(toastId);
     });
 
-    act(() => {
+    reactHookAct(() => {
       jest.advanceTimersByTime(3000);
     });
 
@@ -171,7 +170,7 @@ describe('useToast', () => {
   it('should handle remove toast action without toastId', () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
+    reactHookAct(() => {
       result.current.toast({ title: 'Toast 1' });
       result.current.toast({ title: 'Toast 2' });
     });
@@ -179,7 +178,7 @@ describe('useToast', () => {
     expect(result.current.toasts).toHaveLength(2);
 
     // Remove all toasts
-    act(() => {
+    reactHookAct(() => {
       result.current.dismiss();
       jest.advanceTimersByTime(3000);
     });
