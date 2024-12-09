@@ -73,7 +73,7 @@ export function ContactSection() {
               <Mail className="h-6 w-6 text-primary" />
               <h3 className="font-semibold">Email Us</h3>
             </div>
-            <p className="text-sm text-muted-foreground">contact@swiftx.com</p>
+            <p className="text-sm text-muted-foreground">info@swiftx.io</p>
           </Card>
 
           <Card className="p-6">
@@ -81,7 +81,7 @@ export function ContactSection() {
               <Phone className="h-6 w-6 text-primary" />
               <h3 className="font-semibold">Call Us</h3>
             </div>
-            <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+            <p className="text-sm text-muted-foreground">+201276373205</p>
           </Card>
 
           <Card className="p-6">
@@ -90,9 +90,9 @@ export function ContactSection() {
               <h3 className="font-semibold">Visit Us</h3>
             </div>
             <p className="text-sm text-muted-foreground">
-              123 Tech Street, Suite 100
+              6056 El-Merag city
               <br />
-              San Francisco, CA 94105
+              Zahraa El-Maadi, Cairo, Egypt
             </p>
           </Card>
         </div>

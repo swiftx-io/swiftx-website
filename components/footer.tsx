@@ -1,4 +1,5 @@
 import { Logo } from '@/components/logo';
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -10,6 +11,46 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               Transforming ideas into powerful software solutions.
             </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Phone className="h-4 w-4" />
+                <span>+201276373205</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Mail className="h-4 w-4" />
+                <span>info@swiftx.io</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4" />
+                <span>6056 El-Merag city, Zahraa El-Maadi, Cairo, Egypt</span>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <a
+                href="https://facebook.com/swiftx-io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/swiftx.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://eg.linkedin.com/company/swiftxio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           <div>
