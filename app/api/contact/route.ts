@@ -28,10 +28,16 @@ export async function POST(request: Request) {
     }
 
     if (!process.env.HUBSPOT_ACCESS_TOKEN) {
-      throw new Error('HUBSPOT_ACCESS_TOKEN is not configured');
+      return NextResponse.json(
+        {
+          error: 'Failed to submit form',
+          message: 'HUBSPOT_ACCESS_TOKEN is not configured',
+        },
+        { status: 500 }
+      );
     }
 
-    const response = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
+    const hubspotResponse = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,16 +56,25 @@ export async function POST(request: Request) {
       }),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
+    if (!hubspotResponse.ok) {
+      const errorData = await hubspotResponse.json();
       console.error('Hubspot API error:', errorData);
-      throw new Error('Failed to submit to Hubspot');
+      return NextResponse.json(
+        {
+          error: 'Failed to submit form',
+          message: 'Failed to submit to Hubspot',
+        },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Form submitted successfully',
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Form submitted successfully',
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Form submission error:', error);
     return NextResponse.json(
