@@ -47,8 +47,10 @@ interface State {
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string, dispatch: React.Dispatch<Action>) => {
+  // Clear existing timeout if any
   if (toastTimeouts.has(toastId)) {
-    return;
+    clearTimeout(toastTimeouts.get(toastId));
+    toastTimeouts.delete(toastId);
   }
 
   const timeout = setTimeout(() => {
@@ -149,7 +151,12 @@ function useToast() {
           id,
           open: true,
           onOpenChange: (open) => {
-            if (!open) dismiss();
+            // Always call the original handler first to ensure error propagation
+            props.onOpenChange?.(open);
+            // Only dismiss if the toast is being closed
+            if (!open) {
+              dismiss();
+            }
           },
         },
       });

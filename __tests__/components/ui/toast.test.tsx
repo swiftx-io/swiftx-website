@@ -37,7 +37,7 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status');
+    const toast = screen.getByRole('status', { name: /destructive toast/i });
     expect(toast).toHaveClass('destructive');
   });
 
@@ -48,7 +48,7 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status');
+    const toast = screen.getByRole('status', { name: /success toast/i });
     expect(toast).toHaveClass('border-green-500');
   });
 
@@ -81,7 +81,7 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status');
+    const toast = screen.getByRole('status', { name: /custom class toast/i });
     expect(toast).toHaveClass('custom-test-class');
   });
 });

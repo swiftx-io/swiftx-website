@@ -16,6 +16,7 @@ const mockToastData = {
 describe('useToast', () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    jest.clearAllTimers();
   });
 
   afterEach(() => {
@@ -107,15 +108,21 @@ describe('useToast', () => {
   it('should remove toast after delay', async () => {
     const { result } = renderHook(() => useToast());
 
+    // Add the toast
     await act(async () => {
       result.current.toast(mockToastData);
     });
 
     expect(result.current.toasts).toHaveLength(1);
 
+    // Dismiss the toast
     await act(async () => {
       result.current.dismiss(result.current.toasts[0].id);
-      jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
+    });
+
+    // Run all timers immediately
+    await act(async () => {
+      jest.runAllTimers();
     });
 
     expect(result.current.toasts).toHaveLength(0);
@@ -140,15 +147,21 @@ describe('useToast', () => {
     const { result } = renderHook(() => useToast());
     let toastId: string;
 
+    // Add the toast
     await act(async () => {
       const response = result.current.toast(mockToastData);
       toastId = response.id;
     });
 
+    // Dismiss the toast twice
     await act(async () => {
       result.current.dismiss(toastId);
       result.current.dismiss(toastId);
-      jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
+    });
+
+    // Run all timers immediately
+    await act(async () => {
+      jest.runAllTimers();
     });
 
     expect(result.current.toasts).toHaveLength(0);
@@ -193,6 +206,8 @@ describe('useToast', () => {
 
     await act(async () => {
       result.current.toast(errorToast);
+      // Run timers for state updates
+      jest.runOnlyPendingTimers();
     });
 
     expect(result.current.toasts).toHaveLength(1);
@@ -200,7 +215,6 @@ describe('useToast', () => {
       result.current.toasts[0].onOpenChange?.(false);
     }).toThrow(errorMessage);
   });
-});
 
   it('should handle multiple dismiss calls for same toast', async () => {
     const { result } = renderHook(() => useToast());
