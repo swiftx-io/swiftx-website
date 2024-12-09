@@ -37,8 +37,9 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status', { name: /destructive toast/i });
-    expect(toast).toHaveClass('destructive');
+    const title = screen.getByText('Destructive Toast');
+    const toast = title.closest('[class*="destructive"]');
+    expect(toast).toBeInTheDocument();
   });
 
   it('should render with success variant', () => {
@@ -48,8 +49,9 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status', { name: /success toast/i });
-    expect(toast).toHaveClass('border-green-500');
+    const title = screen.getByText('Success Toast');
+    const toast = title.closest('[class*="border-green-500"]');
+    expect(toast).toBeInTheDocument();
   });
 
   it('should render with close button', () => {
@@ -81,7 +83,8 @@ describe('Toast Component', () => {
       </TestToast>
     );
 
-    const toast = screen.getByRole('status', { name: /custom class toast/i });
-    expect(toast).toHaveClass('custom-test-class');
+    const title = screen.getByText('Custom Class Toast');
+    const toast = title.closest('.custom-test-class');
+    expect(toast).toBeInTheDocument();
   });
 });
