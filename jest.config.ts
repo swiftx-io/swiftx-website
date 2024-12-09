@@ -6,6 +6,7 @@ const createJestConfig = nextJest({
 });
 
 const config: Config = {
+  setupFiles: ['<rootDir>/__tests__/setup/polyfills.ts'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   collectCoverage: true,
@@ -20,6 +21,11 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
+  moduleDirectories: ['node_modules', '<rootDir>'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!(msw|@mswjs)/)',
+  ],
 };
 
 export default createJestConfig(config);
