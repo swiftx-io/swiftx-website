@@ -54,10 +54,13 @@ describe('useToast', () => {
       result.current.toast({ ...toastData, title: 'Toast 1' });
       result.current.toast({ ...toastData, title: 'Toast 2' });
       result.current.toast({ ...toastData, title: 'Toast 3' });
+      result.current.toast({ ...toastData, title: 'Toast 4' });
     });
 
-    expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].title).toBe('Toast 3');
+    expect(result.current.toasts).toHaveLength(3);
+    expect(result.current.toasts[0].title).toBe('Toast 4');
+    expect(result.current.toasts[1].title).toBe('Toast 3');
+    expect(result.current.toasts[2].title).toBe('Toast 2');
   });
 
   it('should update existing toast', () => {
@@ -97,10 +100,12 @@ describe('useToast', () => {
     act(() => {
       result.current.toast({ title: 'Toast 1' });
       result.current.toast({ title: 'Toast 2' });
+      result.current.toast({ title: 'Toast 3' });
     });
 
-    expect(result.current.toasts[0].open).toBe(true);
-    expect(result.current.toasts[1].open).toBe(true);
+    result.current.toasts.forEach(toast => {
+      expect(toast.open).toBe(true);
+    });
 
     act(() => {
       result.current.dismiss();
@@ -265,7 +270,7 @@ describe('useToast', () => {
 
     // Fast-forward past the removal delay
     act(() => {
-      jest.advanceTimersByTime(1000000);
+      jest.advanceTimersByTime(3000);
     });
 
     // Toast should be removed
