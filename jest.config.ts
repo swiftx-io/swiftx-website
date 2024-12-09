@@ -26,6 +26,9 @@ const config: Config = {
   transformIgnorePatterns: [
     '/node_modules/(?!(msw|@mswjs)/)',
   ],
+  testMatch: [
+    '**/__tests__/**/*.test.[jt]s?(x)',
+  ],
 };
 
 export default createJestConfig(config);
