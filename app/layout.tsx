@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <Header />
           <main>{children}</main>
           <Footer />

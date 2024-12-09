@@ -19,7 +19,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
               size="lg"
-              className="bg-primary text-white hover:opacity-90"
+              variant="default"
               onClick={() =>
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
               }
@@ -30,7 +30,7 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background">
         <div className="floating-dots"></div>
       </div>
     </section>

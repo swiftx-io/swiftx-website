@@ -30,7 +30,7 @@ export function Header() {
           </Link>
           <ModeToggle />
           <Button
-            className="bg-primary text-white hover:opacity-90"
+            variant="default"
             onClick={() =>
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
             }
@@ -64,7 +64,8 @@ export function Header() {
             <div className="flex items-center gap-4">
               <ModeToggle />
               <Button
-                className="w-full bg-primary text-white hover:opacity-90"
+                variant="default"
+                className="w-full"
                 onClick={() =>
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
                 }

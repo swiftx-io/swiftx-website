@@ -53,6 +53,9 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -67,8 +70,8 @@
 }
 
 .floating-dots {
-  @apply absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black;
-  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  @apply absolute inset-0 -z-10 h-full w-full bg-background;
+  background-image: radial-gradient(hsl(var(--muted)) 1px, transparent 1px);
   background-size: 16px 16px;
   animation: float 15s linear infinite;
   mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%);

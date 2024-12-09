@@ -44,7 +44,7 @@ export function ContactSection() {
       toast({
         title: 'Form submitted successfully!',
         description: "We'll get back to you soon.",
-        variant: 'default',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Form submission error:', error);
