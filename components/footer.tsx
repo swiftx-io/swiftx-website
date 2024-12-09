@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t">
       <div className="container max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <Logo />
             <p className="text-sm text-muted-foreground">
@@ -14,17 +14,25 @@ export function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>+201276373205</span>
+                <a href="tel:+201276373205" className="hover:text-primary transition-colors">
+                  +201276373205
+                </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>info@swiftx.io</span>
+                <a href="mailto:info@swiftx.io" className="hover:text-primary transition-colors">
+                  info@swiftx.io
+                </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
                 <span>6056 El-Merag city, Zahraa El-Maadi, Cairo, Egypt</span>
               </div>
             </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-semibold">Connect With Us</h3>
             <div className="flex gap-4">
               <a
                 href="https://facebook.com/swiftx-io"
@@ -51,35 +59,6 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
             </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">Custom Development</li>
-              <li className="text-sm text-muted-foreground">Cloud Solutions</li>
-              <li className="text-sm text-muted-foreground">Mobile Apps</li>
-              <li className="text-sm text-muted-foreground">Consulting</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Company</h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">About Us</li>
-              <li className="text-sm text-muted-foreground">Careers</li>
-              <li className="text-sm text-muted-foreground">Blog</li>
-              <li className="text-sm text-muted-foreground">Contact</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">Privacy Policy</li>
-              <li className="text-sm text-muted-foreground">Terms of Service</li>
-              <li className="text-sm text-muted-foreground">Cookie Policy</li>
-            </ul>
           </div>
         </div>
 

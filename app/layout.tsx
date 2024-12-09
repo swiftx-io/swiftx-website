@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'SwiftX - Modern Software Solutions',
   description: 'Professional software development services for modern businesses',
+  icons: {
+    icon: '/logo-light.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
