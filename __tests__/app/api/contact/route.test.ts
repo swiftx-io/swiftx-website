@@ -130,4 +130,45 @@ describe('Contact API Route', () => {
 
     process.env.HUBSPOT_ACCESS_TOKEN = token;
   });
+
+  it('should handle form submission with optional fields', async () => {
+    const formDataWithOptionals = {
+      ...validFormData,
+      phoneNumber: undefined,
+      companyName: undefined,
+    };
+
+    const request = new NextRequest('http://localhost/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(formDataWithOptionals),
+    });
+
+    const response = await POST(request);
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data.success).toBe(true);
+    expect(data.message).toBe('Form submitted successfully');
+  });
+
+  it('should handle custom error types', async () => {
+    const customError = new TypeError('Custom type error');
+    const request = new NextRequest('http://localhost/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(validFormData),
+    });
+
+    // Mock fetch to throw the custom error
+    global.fetch = jest.fn().mockRejectedValue(customError);
+
+    const response = await POST(request);
+    expect(response.status).toBe(500);
+
+    const data = await response.json();
+    expect(data.error).toBe('Failed to submit form');
+    expect(data.message).toBe('Custom type error');
+
+    // Restore fetch
+    jest.restoreAllMocks();
+  });
 });
