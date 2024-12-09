@@ -86,4 +86,33 @@ describe('MSW Handlers', () => {
     expect(response.status).toBe(400);
     expect(data.message).toBe('Bad Request - Invalid JSON');
   });
+
+  it('should handle contact creation with minimal required fields', async () => {
+    const minimalData = {
+      properties: {
+        firstname: 'John',
+        lastname: 'Doe',
+        email: 'john@example.com'
+        // Omitting all optional fields
+      }
+    };
+
+    const response = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer test-token',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(minimalData)
+    });
+
+    const data = await response.json();
+    expect(response.status).toBe(200);
+    expect(data.id).toBe('123');
+    expect(data.properties.firstname).toBe(minimalData.properties.firstname);
+    expect(data.properties.how_did_you_hear_about_us).toBe('');
+    expect(data.properties.project_description).toBe('');
+    expect(data.properties.phone).toBe('');
+    expect(data.properties.company).toBe('');
+  });
 });

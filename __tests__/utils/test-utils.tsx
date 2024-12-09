@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { ThemeProvider } from '../../components/theme-provider';
 
 interface ProvidersProps {
@@ -7,13 +8,26 @@ interface ProvidersProps {
 }
 
 const AllTheProviders = ({ children }: ProvidersProps) => {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+    >
+      {children}
+    </ThemeProvider>
+  );
 };
 
-const customRender = (
+const customRender = async (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>
-) => render(ui, { wrapper: AllTheProviders, ...options });
+) => {
+  const result = render(ui, { wrapper: AllTheProviders, ...options });
+  // Wait for any pending state updates
+  await new Promise(resolve => setTimeout(resolve, 0));
+  return result;
+};
 
 // re-export everything
 export * from '@testing-library/react';
