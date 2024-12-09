@@ -1,6 +1,4 @@
-import { rest } from 'msw';
 import { server } from './setup-msw';
-import { handlers } from './handlers';
 
 describe('MSW Handlers', () => {
   const validContactData = {

@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server';
 import { POST } from '../../../../app/api/contact/route';
-import { contactFormSchema } from '../../../../lib/schemas/contact-form';
 import { server } from '../../../mocks/setup-msw';
 
 describe('Contact API Route', () => {
