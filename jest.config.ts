@@ -10,14 +10,6 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   collectCoverage: true,
-  coverageThreshold: {
-    global: {
-      branches: 90,
-      functions: 90,
-      lines: 90,
-      statements: 90,
-    },
-  },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },

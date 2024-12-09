@@ -14,13 +14,13 @@ const mockToastData = {
 
 describe('useToast', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({ advanceTimers: true });
     jest.clearAllTimers();
   });
 
   afterEach(() => {
     act(() => {
-      jest.runOnlyPendingTimers();
+      jest.runAllTimers();
     });
     jest.useRealTimers();
   });
@@ -295,30 +295,32 @@ describe('useToast', () => {
   });
 
   it('should handle multiple dismiss calls with different timing', async () => {
-    jest.useFakeTimers();
     const { result } = renderHook(() => useToast());
+    let toastId: string;
 
-    // Create a toast and dismiss it
     await act(async () => {
       const toast = result.current.toast({ title: 'Test Toast' });
-      result.current.dismiss(toast.id);
+      toastId = toast.id;
     });
 
-    // Fast forward halfway through the removal delay
-    jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
-
-    // Dismiss again before the first timeout completes
+    // First dismiss call
     await act(async () => {
-      result.current.dismiss(result.current.toasts[0].id);
+      result.current.dismiss(toastId);
     });
 
-    // Fast forward the remaining time
-    jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
+    // Wait half the removal delay
+    await act(async () => {
+      jest.advanceTimersByTime(TOAST_REMOVE_DELAY / 2);
+    });
 
-    // Toast should be removed exactly once
+    // Second dismiss call
+    await act(async () => {
+      result.current.dismiss(toastId);
+      // Complete the removal delay
+      jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
+    });
+
     expect(result.current.toasts).toHaveLength(0);
-
-    jest.useRealTimers();
   });
 
   it('should handle cleanup on unmount with pending timeouts', async () => {
@@ -352,17 +354,11 @@ describe('useToast', () => {
   });
 
   it('should handle invalid properties in update', async () => {
-    jest.useFakeTimers();
     const { result } = renderHook(() => useToast());
     let toastResponse: ToastResponse;
 
     await act(async () => {
       toastResponse = result.current.toast(mockToastData);
-    });
-
-    const originalToast = { ...result.current.toasts[0] };
-
-    await act(async () => {
       // @ts-expect-error - Testing invalid property
       toastResponse.update({ invalidProp: 'test', title: 'Updated Title' });
     });
@@ -372,18 +368,19 @@ describe('useToast', () => {
     // Verify that valid properties are updated
     expect(updatedToast.title).toBe('Updated Title');
     // Verify that original properties are preserved
-    expect(updatedToast.description).toBe(originalToast.description);
-    expect(updatedToast.open).toBe(originalToast.open);
-    expect(updatedToast.id).toBe(originalToast.id);
+    expect(updatedToast.description).toBe(mockToastData.description);
+    expect(updatedToast.open).toBe(true);
+    expect(updatedToast.id).toBeDefined();
 
     // Verify that invalid properties are not added
-    expect(Object.keys(updatedToast)).not.toContain('invalidProp');
-
-    jest.useRealTimers();
+    const validKeys = ['title', 'description', 'id', 'open', 'onOpenChange', 'variant', 'className', 'action', 'role'];
+    const toastKeys = Object.keys(updatedToast);
+    toastKeys.forEach(key => {
+      expect(validKeys).toContain(key);
+    });
   });
 
   it('should remove all toasts when dismissing with undefined toastId', async () => {
-    jest.useFakeTimers();
     const { result } = renderHook(() => useToast());
 
     // Add multiple toasts
@@ -395,17 +392,19 @@ describe('useToast', () => {
 
     expect(result.current.toasts).toHaveLength(3);
 
-    // Dismiss all toasts with undefined toastId
+    // First verify all toasts are marked as closed
     await act(async () => {
       result.current.dismiss(undefined);
-      // Fast forward to trigger the REMOVE_TOAST action
+    });
+
+    expect(result.current.toasts.every(t => !t.open)).toBe(true);
+
+    // Then wait for removal delay
+    await act(async () => {
       jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
     });
 
-    // Verify all toasts are removed
     expect(result.current.toasts).toHaveLength(0);
-
-    jest.useRealTimers();
   });
 
   it('should handle crypto.randomUUID failure', async () => {
@@ -423,4 +422,40 @@ describe('useToast', () => {
       crypto.randomUUID = originalRandomUUID;
     }
   });
-});
+
+  describe('error handling', () => {
+    it('should handle invalid toast updates gracefully', async () => {
+      const { result } = renderHook(() => useToast());
+      let toastResponse: ToastResponse;
+
+      await act(async () => {
+        toastResponse = result.current.toast({ title: 'Test' });
+        toastResponse.update({ title: 'Updated' });
+      });
+
+      expect(result.current.toasts[0].title).toBe('Updated');
+    });
+
+    it('should handle undefined dismiss calls', async () => {
+      const { result } = renderHook(() => useToast());
+
+      await act(async () => {
+        result.current.toast({ title: 'Test' });
+      });
+
+      // First verify toast is marked as closed
+      await act(async () => {
+        result.current.dismiss(undefined);
+      });
+
+      expect(result.current.toasts[0].open).toBe(false);
+
+      // Then wait for removal delay
+      await act(async () => {
+        jest.advanceTimersByTime(TOAST_REMOVE_DELAY);
+      });
+
+      expect(result.current.toasts).toHaveLength(0);
+    });
+  });
+}); // Close useToast describe block

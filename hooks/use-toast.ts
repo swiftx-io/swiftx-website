@@ -76,7 +76,17 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         toasts: state.toasts.map((t) =>
-          t.id === action.toast.id ? { ...t, ...action.toast } : t
+          t.id === action.toast.id
+            ? {
+                ...t,
+                ...(action.toast.title !== undefined && { title: action.toast.title }),
+                ...(action.toast.description !== undefined && { description: action.toast.description }),
+                ...(action.toast.action !== undefined && { action: action.toast.action }),
+                ...(action.toast.variant !== undefined && { variant: action.toast.variant }),
+                ...(action.toast.className !== undefined && { className: action.toast.className }),
+                ...(action.toast.role !== undefined && { role: action.toast.role }),
+              }
+            : t
         ),
       };
 

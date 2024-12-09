@@ -1,6 +1,6 @@
 import { TextEncoder, TextDecoder } from 'util';
 import nodeFetch, { Request as NodeRequest, Response as NodeResponse, Headers as NodeHeaders } from 'node-fetch';
-import { webcrypto } from 'node:crypto';
+import { webcrypto, randomUUID } from 'node:crypto';
 
 // Setup polyfills
 (global as any).TextEncoder = TextEncoder;
@@ -9,7 +9,18 @@ import { webcrypto } from 'node:crypto';
 (global as any).Request = NodeRequest;
 (global as any).Response = NodeResponse;
 (global as any).Headers = NodeHeaders;
-(global as any).crypto = webcrypto;
+
+// Setup crypto with randomUUID
+const cryptoWithUUID = {
+  ...webcrypto,
+  randomUUID: randomUUID
+};
+
+Object.defineProperty(global, 'crypto', {
+  value: cryptoWithUUID,
+  writable: true,
+  configurable: true,
+});
 
 // Mock BroadcastChannel for MSW
 class MockBroadcastChannel {
