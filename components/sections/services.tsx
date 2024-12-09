@@ -41,9 +41,9 @@ export function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+          {services.map(service => (
             <Card
-              key={index}
+              key={service.title}
               className="p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               <service.icon className="h-12 w-12 mb-4 text-primary" />
