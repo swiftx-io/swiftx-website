@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -15,12 +17,15 @@ export function HeroSection() {
             From custom development to cloud solutions, we&apos;re your trusted technology partner.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-primary text-white hover:opacity-90">
-              Get Started
+            <Button
+              size="lg"
+              className="bg-primary text-white hover:opacity-90"
+              onClick={() =>
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Schedule a free expert session
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline">
-              Learn More
             </Button>
           </div>
         </div>

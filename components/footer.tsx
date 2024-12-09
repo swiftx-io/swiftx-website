@@ -67,18 +67,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li className="text-sm text-muted-foreground">About Us</li>
-              <li className="text-sm text-muted-foreground">Careers</li>
-              <li className="text-sm text-muted-foreground">Blog</li>
               <li className="text-sm text-muted-foreground">Contact</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">Privacy Policy</li>
-              <li className="text-sm text-muted-foreground">Terms of Service</li>
-              <li className="text-sm text-muted-foreground">Cookie Policy</li>
             </ul>
           </div>
         </div>

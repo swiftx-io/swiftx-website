@@ -42,7 +42,10 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <Card key={index} className="p-6">
+            <Card
+              key={index}
+              className="p-6 transition-all duration-300 hover:shadow-lg hover:scale-105"
+            >
               <service.icon className="h-12 w-12 mb-4 text-primary" />
               <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
               <p className="text-sm text-muted-foreground">{service.description}</p>
