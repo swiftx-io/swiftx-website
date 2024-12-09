@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { contactFormSchema } from '@/lib/schemas/contact-form';
 
 type ContactFormData = {
   firstName: string;
@@ -14,18 +15,29 @@ export async function POST(request: Request) {
   try {
     const data = (await request.json()) as ContactFormData;
 
-    // Validate required fields
-    if (
-      !data.firstName ||
-      !data.lastName ||
-      !data.email ||
-      !data.howDidYouHear ||
-      !data.projectDescription
-    ) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    // Validate using Zod schema
+    const result = contactFormSchema.safeParse(data);
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          error: 'Invalid form data',
+          details: result.error.issues,
+        },
+        { status: 400 }
+      );
     }
 
-    const response = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
+    if (!process.env.HUBSPOT_ACCESS_TOKEN) {
+      return NextResponse.json(
+        {
+          error: 'Failed to submit form',
+          message: 'HUBSPOT_ACCESS_TOKEN is not configured',
+        },
+        { status: 500 }
+      );
+    }
+
+    const hubspotResponse = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,16 +56,25 @@ export async function POST(request: Request) {
       }),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
+    if (!hubspotResponse.ok) {
+      const errorData = await hubspotResponse.json();
       console.error('Hubspot API error:', errorData);
-      throw new Error('Failed to submit to Hubspot');
+      return NextResponse.json(
+        {
+          error: 'Failed to submit form',
+          message: 'Failed to submit to Hubspot',
+        },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: 'Form submitted successfully',
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: 'Form submitted successfully',
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Form submission error:', error);
     return NextResponse.json(
