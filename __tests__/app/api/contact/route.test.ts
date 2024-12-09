@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { POST } from '../../../../app/api/contact/route';
 import { contactFormSchema } from '../../../../lib/schemas/contact-form';
 import { server } from '../../../mocks/setup-msw';
@@ -15,10 +15,16 @@ describe('Contact API Route', () => {
   };
 
   beforeAll(() => {
+    server.listen();
     process.env.HUBSPOT_ACCESS_TOKEN = 'test-token';
   });
 
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
   afterAll(() => {
+    server.close();
     delete process.env.HUBSPOT_ACCESS_TOKEN;
   });
 
@@ -50,7 +56,8 @@ describe('Contact API Route', () => {
     expect(response.status).toBe(400);
 
     const data = await response.json();
-    expect(data.error).toBe('Missing required fields');
+    expect(data.error).toBe('Invalid form data');
+    expect(data.details).toBeDefined();
   });
 
   it('should handle invalid email format', async () => {
@@ -68,24 +75,28 @@ describe('Contact API Route', () => {
     expect(response.status).toBe(400);
 
     const data = await response.json();
-    expect(data.error).toBeDefined();
+    expect(data.error).toBe('Invalid form data');
+    expect(data.details).toBeDefined();
+    expect(data.details.some((issue: any) => issue.path.includes('email'))).toBe(true);
   });
 
   it('should handle HubSpot API errors', async () => {
     const request = new NextRequest('http://localhost/api/contact', {
       method: 'POST',
-      body: JSON.stringify({
-        ...validFormData,
-        firstName: '',
-        lastName: '',
-      }),
+      body: JSON.stringify(validFormData),
     });
+
+    const token = process.env.HUBSPOT_ACCESS_TOKEN;
+    process.env.HUBSPOT_ACCESS_TOKEN = 'invalid-token';
 
     const response = await POST(request);
     expect(response.status).toBe(500);
 
     const data = await response.json();
     expect(data.error).toBe('Failed to submit form');
+    expect(data.message).toBe('Failed to submit to Hubspot');
+
+    process.env.HUBSPOT_ACCESS_TOKEN = token;
   });
 
   it('should handle malformed JSON in request', async () => {
@@ -115,6 +126,7 @@ describe('Contact API Route', () => {
 
     const data = await response.json();
     expect(data.error).toBe('Failed to submit form');
+    expect(data.message).toBe('HUBSPOT_ACCESS_TOKEN is not configured');
 
     process.env.HUBSPOT_ACCESS_TOKEN = token;
   });

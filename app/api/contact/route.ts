@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { contactFormSchema } from '@/lib/schemas/contact-form';
 
 type ContactFormData = {
   firstName: string;
@@ -14,15 +15,20 @@ export async function POST(request: Request) {
   try {
     const data = (await request.json()) as ContactFormData;
 
-    // Validate required fields
-    if (
-      !data.firstName ||
-      !data.lastName ||
-      !data.email ||
-      !data.howDidYouHear ||
-      !data.projectDescription
-    ) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    // Validate using Zod schema
+    const result = contactFormSchema.safeParse(data);
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          error: 'Invalid form data',
+          details: result.error.issues
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!process.env.HUBSPOT_ACCESS_TOKEN) {
+      throw new Error('HUBSPOT_ACCESS_TOKEN is not configured');
     }
 
     const response = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
