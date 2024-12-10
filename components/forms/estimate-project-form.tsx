@@ -30,6 +30,7 @@ export function EstimateProjectForm() {
               { name: 'firstname', value: data.firstname },
               { name: 'lastname', value: data.lastname },
               { name: 'email', value: data.email },
+              { name: 'phone', value: data.phone || '' },
               { name: 'company', value: data.company },
               { name: 'project_description', value: data.projectDescription },
             ],
@@ -57,7 +58,16 @@ export function EstimateProjectForm() {
           <CustomInputField control={form.control} name="firstname" label="First Name" required />
           <CustomInputField control={form.control} name="lastname" label="Last Name" required />
         </div>
-        <CustomInputField control={form.control} name="email" type="email" label="Email" required />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CustomInputField
+            control={form.control}
+            name="email"
+            type="email"
+            label="Email"
+            required
+          />
+          <CustomInputField control={form.control} name="phone" type="tel" label="Phone Number" />
+        </div>
         <CustomInputField control={form.control} name="company" label="Company" required />
         <CustomTextareaField
           control={form.control}
