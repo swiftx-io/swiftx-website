@@ -1,5 +1,17 @@
 import type { LucideIcon } from 'lucide-react';
-import { Code, Cloud, Brain, Shield, LineChart } from 'lucide-react';
+import {
+  Code,
+  Cloud,
+  Brain,
+  Shield,
+  LineChart,
+  Lightbulb,
+  Smartphone,
+  Palette,
+  Database,
+  Settings,
+  Users,
+} from 'lucide-react';
 
 export interface Service {
   readonly id: string;
@@ -83,126 +95,180 @@ const createCategory = (
   services,
 });
 
-// Service definitions using templates and patterns
-const serviceDefinitions = {
-  coreDevelopment: [
-    ['web-development', 'Web Application Development', patterns.descriptions.development],
-    ['api-development', 'API Development & Integration', patterns.descriptions.integration],
-    ['backend-systems', 'Backend Systems Architecture', patterns.descriptions.development],
-    ['frontend-development', 'Frontend Development', patterns.descriptions.development],
-    ['database-design', 'Database Design & Optimization', patterns.descriptions.development],
-  ],
-  cloudInfrastructure: [
-    ['cloud-architecture', 'Cloud Architecture', patterns.descriptions.cloud],
-    ['devops-cicd', 'DevOps & CI/CD', patterns.descriptions.automation],
-    ['infrastructure-automation', 'Infrastructure Automation', patterns.descriptions.automation],
-    ['container-orchestration', 'Container Orchestration', patterns.descriptions.cloud],
-    ['monitoring-logging', 'Monitoring & Logging', patterns.descriptions.cloud],
-  ],
-  aiMl: [
-    ['ml-development', 'Machine Learning Development', patterns.descriptions.ai],
-    ['nlp-solutions', 'Natural Language Processing', patterns.descriptions.ai],
-    ['computer-vision', 'Computer Vision Solutions', patterns.descriptions.ai],
-    ['predictive-analytics', 'Predictive Analytics', patterns.descriptions.ai],
-    ['ai-integration', 'AI Integration Services', patterns.descriptions.ai],
-  ],
-  security: [
-    ['application-security', 'Application Security', patterns.descriptions.security],
-    ['compliance', 'Compliance Implementation', patterns.descriptions.security],
-    ['security-audit', 'Security Auditing', patterns.descriptions.security],
-    ['penetration-testing', 'Penetration Testing', patterns.descriptions.security],
-    ['security-training', 'Security Training', patterns.descriptions.security],
-  ],
-  consulting: [
-    ['architecture-design', 'Technical Architecture Design', patterns.descriptions.consulting],
-    ['tech-stack', 'Technology Stack Selection', patterns.descriptions.consulting],
-    ['performance-optimization', 'Performance Optimization', patterns.descriptions.consulting],
-    ['scalability-planning', 'Scalability Planning', patterns.descriptions.consulting],
-    ['digital-transformation', 'Digital Transformation', patterns.descriptions.consulting],
-  ],
-} as const;
-
-// Create services using templates and patterns
-const createServices = (
-  definitions: readonly (readonly [string, string, string])[],
-  technologies: readonly string[],
-  benefits: readonly string[]
-) =>
-  definitions.map(([id, title, description]) =>
-    createService(
-      id,
-      title,
-      createTemplate(
-        description,
-        `Comprehensive ${title.toLowerCase()} solutions tailored to your needs.`,
-        technologies,
-        benefits
-      )
-    )
-  );
-
-// Service categories with appropriate technologies and benefits
-const coreDevelopmentServices = createServices(
-  serviceDefinitions.coreDevelopment,
-  patterns.technologies.web,
-  patterns.benefits.performance
-);
-const cloudInfrastructureServices = createServices(
-  serviceDefinitions.cloudInfrastructure,
-  patterns.technologies.cloud,
-  patterns.benefits.automation
-);
-const aiMlServices = createServices(
-  serviceDefinitions.aiMl,
-  patterns.technologies.ai,
-  patterns.benefits.innovation
-);
-const securityComplianceServices = createServices(
-  serviceDefinitions.security,
-  patterns.technologies.security,
-  patterns.benefits.security
-);
-const consultingStrategyServices = createServices(
-  serviceDefinitions.consulting,
-  patterns.technologies.devops,
-  patterns.benefits.reliability
-);
-
 // Export service categories
 export const services: Record<string, ServiceCategory> = {
-  'core-development': createCategory(
-    'core-development',
-    'Core Development Services',
-    'End-to-end development solutions for modern applications',
+  'ideation': createCategory(
+    'ideation',
+    'Ideation',
+    'Transform ideas into reality through innovative solutions',
+    Lightbulb,
+    [
+      createService('rapid-prototyping', 'Rapid Prototyping', createTemplate(
+        'Quick iteration and validation of ideas',
+        'Rapidly prototype and validate your ideas with our agile development approach',
+        patterns.technologies.web,
+        patterns.benefits.innovation
+      )),
+      createService('research-development', 'Research & Development', createTemplate(
+        'Cutting-edge research and development solutions',
+        'Drive innovation through comprehensive research and development',
+        patterns.technologies.web,
+        patterns.benefits.innovation
+      )),
+      createService('user-research', 'User Research & Testing', createTemplate(
+        'In-depth user research and testing',
+        'Understand your users through comprehensive research and testing',
+        patterns.technologies.web,
+        patterns.benefits.innovation
+      )),
+      createService('product-strategy', 'Product Strategy', createTemplate(
+        'Strategic product planning and execution',
+        'Define and execute winning product strategies',
+        patterns.technologies.web,
+        patterns.benefits.innovation
+      )),
+    ]
+  ),
+  'software-development': createCategory(
+    'software-development',
+    'Software Development',
+    'Build robust and scalable software solutions',
     Code,
-    coreDevelopmentServices
+    [
+      createService('web-development', 'Web Development', createTemplate(
+        'Modern web application development',
+        'Create powerful web applications with cutting-edge technologies',
+        patterns.technologies.web,
+        patterns.benefits.performance
+      )),
+      createService('mobile-development', 'Mobile Development', createTemplate(
+        'Native and cross-platform mobile solutions',
+        'Develop engaging mobile applications for iOS and Android',
+        [...patterns.technologies.web, 'React Native', 'iOS', 'Android'],
+        patterns.benefits.performance
+      )),
+      createService('mvp-development', 'MVPs', createTemplate(
+        'Minimum viable product development',
+        'Quickly validate your ideas with MVP development',
+        patterns.technologies.web,
+        patterns.benefits.innovation
+      )),
+      createService('cloud-strategy', 'Cloud Strategy', createTemplate(
+        'Comprehensive cloud solutions',
+        'Optimize your infrastructure with cloud-first strategies',
+        patterns.technologies.cloud,
+        patterns.benefits.reliability
+      )),
+    ]
   ),
-  'cloud-infrastructure': createCategory(
-    'cloud-infrastructure',
-    'Cloud & Infrastructure',
-    'Modern cloud solutions and DevOps practices',
-    Cloud,
-    cloudInfrastructureServices
+  'design': createCategory(
+    'design',
+    'Design',
+    'Create exceptional user experiences',
+    Palette,
+    [
+      createService('product-design', 'Product Design', createTemplate(
+        'End-to-end product design solutions',
+        'Design intuitive and engaging product experiences',
+        ['Figma', 'Adobe XD', 'Sketch', 'Design Systems'],
+        patterns.benefits.innovation
+      )),
+      createService('ux-design', 'UX Design', createTemplate(
+        'User experience design and optimization',
+        'Create seamless user experiences through research-driven design',
+        ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing'],
+        patterns.benefits.innovation
+      )),
+      createService('ui-design', 'UI Design', createTemplate(
+        'User interface design and development',
+        'Design beautiful and functional user interfaces',
+        ['UI Components', 'Visual Design', 'Design Systems', 'Accessibility'],
+        patterns.benefits.innovation
+      )),
+      createService('design-systems', 'Design Systems', createTemplate(
+        'Comprehensive design system development',
+        'Build scalable and consistent design systems',
+        ['Design Tokens', 'Component Libraries', 'Documentation', 'Style Guides'],
+        patterns.benefits.innovation
+      )),
+    ]
   ),
-  'ai-ml': createCategory(
-    'ai-ml',
-    'AI & Machine Learning',
-    'Advanced AI and ML solutions',
+  'ai-data': createCategory(
+    'ai-data',
+    'Generative AI and Data',
+    'Harness the power of AI and data',
     Brain,
-    aiMlServices
+    [
+      createService('ai-development', 'AI Development', createTemplate(
+        'Custom AI solution development',
+        'Build intelligent applications with custom AI solutions',
+        patterns.technologies.ai,
+        patterns.benefits.innovation
+      )),
+      createService('generative-ai', 'Generative AI Development', createTemplate(
+        'Advanced generative AI solutions',
+        'Implement cutting-edge generative AI technologies',
+        [...patterns.technologies.ai, 'GPT', 'DALL-E', 'Stable Diffusion'],
+        patterns.benefits.innovation
+      )),
+      createService('data-engineering', 'Data Engineering', createTemplate(
+        'Robust data infrastructure and pipelines',
+        'Build scalable data infrastructure and processing pipelines',
+        ['Apache Spark', 'Kafka', 'Airflow', 'ETL'],
+        patterns.benefits.reliability
+      )),
+    ]
   ),
-  'security-compliance': createCategory(
-    'security-compliance',
-    'Security & Compliance',
-    'Comprehensive security and compliance solutions',
-    Shield,
-    securityComplianceServices
+  'maintenance': createCategory(
+    'maintenance',
+    'Maintenance',
+    'Ensure long-term success and reliability',
+    Settings,
+    [
+      createService('quality-assurance', 'Quality Assurance', createTemplate(
+        'Comprehensive quality assurance services',
+        'Ensure software quality through rigorous testing',
+        ['Jest', 'Cypress', 'Selenium', 'Testing Frameworks'],
+        patterns.benefits.reliability
+      )),
+      createService('product-management', 'Product Management', createTemplate(
+        'Expert product management services',
+        'Guide product development with experienced management',
+        ['Agile', 'Scrum', 'Product Roadmap', 'Sprint Planning'],
+        patterns.benefits.innovation
+      )),
+      createService('maintenance-services', 'Software Maintenance Services', createTemplate(
+        'Ongoing software maintenance and support',
+        'Keep your software running smoothly with professional maintenance',
+        patterns.technologies.devops,
+        patterns.benefits.reliability
+      )),
+    ]
   ),
-  'consulting-strategy': createCategory(
-    'consulting-strategy',
-    'Consulting & Strategy',
-    'Expert technical consulting and strategic planning',
-    LineChart,
-    consultingStrategyServices
+  'cooperation': createCategory(
+    'cooperation',
+    'Cooperation Models',
+    'Flexible engagement models for your needs',
+    Users,
+    [
+      createService('dedicated-teams', 'Dedicated Teams', createTemplate(
+        'Dedicated development team solutions',
+        'Build your own dedicated development team',
+        patterns.technologies.devops,
+        patterns.benefits.reliability
+      )),
+      createService('staff-augmentation', 'Staff Augmentation', createTemplate(
+        'Flexible staff augmentation services',
+        'Augment your team with skilled professionals',
+        patterns.technologies.devops,
+        patterns.benefits.reliability
+      )),
+      createService('delivery-center', 'Delivery Center', createTemplate(
+        'Full-service delivery center solutions',
+        'Establish your own delivery center with our support',
+        patterns.technologies.devops,
+        patterns.benefits.reliability
+      )),
+    ]
   ),
 } as const;

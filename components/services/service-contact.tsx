@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -8,9 +9,9 @@ export interface ServiceContactProps {
 }
 
 export function ServiceContact({ className }: ServiceContactProps) {
+  const router = useRouter();
   const handleContactClick = () => {
-    // Open HubSpot meeting scheduler
-    window.open('https://meetings.hubspot.com/swiftx', '_blank', 'noopener');
+    router.push('/estimate-project');
   };
 
   return (

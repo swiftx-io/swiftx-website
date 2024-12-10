@@ -6,6 +6,15 @@ import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/logo';
+import { ServicesMenu } from '@/components/navigation/services-menu';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from '@/components/ui/navigation-menu';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +26,20 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-6">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  onClick={() => {
+                    router.push('/services');
+                  }}
+                >
+                  Services
+                </NavigationMenuTrigger>
+                <ServicesMenu />
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           <ModeToggle />
           <Button
             variant="default"
@@ -38,6 +61,16 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+            <Button
+              variant="ghost"
+              className="w-full text-left justify-start"
+              onClick={() => {
+                router.push('/services');
+                setIsMenuOpen(false);
+              }}
+            >
+              Services
+            </Button>
             <div className="flex items-center gap-4">
               <ModeToggle />
               <Button
@@ -45,6 +78,7 @@ export function Header() {
                 className="w-full"
                 onClick={() => {
                   router.push('/estimate-project');
+                  setIsMenuOpen(false);
                 }}
               >
                 Estimate Project

@@ -53,8 +53,8 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="container">
-      <section className="py-24">
+    <div className="container mx-auto">
+      <section className="py-24 flex flex-col items-center">
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
           Technical Excellence for Digital Innovation
         </h1>
@@ -62,7 +62,7 @@ export default function ServicesPage() {
           Comprehensive software development services powered by modern technology and best
           practices.
         </p>
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full">
           {services.map(service => (
             <ServiceCard
               key={service.id}
