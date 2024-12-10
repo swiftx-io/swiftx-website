@@ -5,11 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import {
-  CustomInputField,
-  CustomTextareaField,
-  CustomSelectField,
-} from '@/components/ui/form-fields';
+import { CustomInputField, CustomTextareaField } from '@/components/ui/form-fields';
 import { estimateProjectSchema } from '@/lib/schemas/estimate-project';
 import type { EstimateProjectData } from '@/lib/schemas/estimate-project';
 
@@ -36,9 +32,6 @@ export function EstimateProjectForm() {
               { name: 'email', value: data.email },
               { name: 'company', value: data.company },
               { name: 'project_description', value: data.projectDescription },
-              { name: 'budget', value: data.budget },
-              { name: 'timeline', value: data.timeline },
-              { name: 'service_type', value: data.serviceType },
             ],
           }),
         }
@@ -70,42 +63,6 @@ export function EstimateProjectForm() {
           control={form.control}
           name="projectDescription"
           label="Project Description"
-          required
-        />
-        <CustomSelectField
-          control={form.control}
-          name="budget"
-          label="Budget Range"
-          options={[
-            { value: '10-50k', label: '$10,000 - $50,000' },
-            { value: '50-100k', label: '$50,000 - $100,000' },
-            { value: '100k+', label: '$100,000+' },
-          ]}
-          required
-        />
-        <CustomSelectField
-          control={form.control}
-          name="timeline"
-          label="Expected Timeline"
-          options={[
-            { value: '1-3-months', label: '1-3 months' },
-            { value: '3-6-months', label: '3-6 months' },
-            { value: '6-12-months', label: '6-12 months' },
-            { value: '12-months+', label: '12+ months' },
-          ]}
-          required
-        />
-        <CustomSelectField
-          control={form.control}
-          name="serviceType"
-          label="Service Type"
-          options={[
-            { value: 'core-development', label: 'Core Development' },
-            { value: 'cloud-infrastructure', label: 'Cloud & Infrastructure' },
-            { value: 'ai-ml', label: 'AI & Machine Learning' },
-            { value: 'security-compliance', label: 'Security & Compliance' },
-            { value: 'consulting-strategy', label: 'Consulting & Strategy' },
-          ]}
           required
         />
         <Button type="submit" className="w-full">
