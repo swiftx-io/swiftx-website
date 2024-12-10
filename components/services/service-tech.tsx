@@ -3,9 +3,9 @@
 import { cn } from '@/lib/utils';
 
 export interface ServiceTechProps {
-  title: string;
-  technologies: ReadonlyArray<string>;
-  className?: string;
+  readonly title: string;
+  readonly technologies: ReadonlyArray<string>;
+  readonly className?: string;
 }
 
 export function ServiceTech({ title, technologies, className }: ServiceTechProps) {

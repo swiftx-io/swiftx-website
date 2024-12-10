@@ -2,10 +2,10 @@ import { cn } from '@/lib/utils';
 import type { Service } from '@/lib/services/data';
 
 export interface ServiceOverviewProps {
-  title: string;
-  description: string;
-  services: ReadonlyArray<Service>;
-  className?: string;
+  readonly title: string;
+  readonly description: string;
+  readonly services: ReadonlyArray<Service>;
+  readonly className?: string;
 }
 
 export function ServiceOverview({ title, description, services, className }: ServiceOverviewProps) {

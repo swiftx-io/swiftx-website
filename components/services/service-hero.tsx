@@ -2,10 +2,10 @@ import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
 
 export interface ServiceHeroProps {
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-  className?: string;
+  readonly title: string;
+  readonly description: string;
+  readonly Icon: LucideIcon;
+  readonly className?: string;
 }
 
 export function ServiceHero({ title, description, Icon, className }: ServiceHeroProps) {

@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export interface ServiceCardProps {
-  id: string;
-  title: string;
-  description: string;
-  icon?: React.ReactNode;
-  technologies?: string[];
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly icon?: React.ReactNode;
+  readonly technologies?: readonly string[];
 }
 
 export function ServiceCard({ id, title, description, icon, technologies }: ServiceCardProps) {

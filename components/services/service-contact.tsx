@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export interface ServiceContactProps {
-  className?: string;
+  readonly className?: string;
 }
 
 export function ServiceContact({ className }: ServiceContactProps) {

@@ -9,8 +9,8 @@ import { ServiceWhy } from '@/components/services/service-why';
 import { ServiceContact } from '@/components/services/service-contact';
 
 interface ServicePageProps {
-  params: {
-    service: string;
+  readonly params: {
+    readonly service: string;
   };
 }
 

@@ -2,8 +2,8 @@ import { cn } from '@/lib/utils';
 import type { Service } from '@/lib/services/data';
 
 export interface ServiceProcessProps {
-  services: ReadonlyArray<Service>;
-  className?: string;
+  readonly services: ReadonlyArray<Service>;
+  readonly className?: string;
 }
 
 export function ServiceProcess({ services, className }: ServiceProcessProps) {

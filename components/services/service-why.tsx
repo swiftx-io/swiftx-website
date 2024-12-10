@@ -5,9 +5,9 @@ import { cn } from '@/lib/utils';
 import { CheckCircle } from 'lucide-react';
 
 interface ServiceWhyProps {
-  title?: string;
-  benefits?: readonly string[];
-  className?: string;
+  readonly title?: string;
+  readonly benefits?: readonly string[];
+  readonly className?: string;
 }
 
 export function ServiceWhy({ title = 'Why Choose SwiftX', benefits, className }: ServiceWhyProps) {

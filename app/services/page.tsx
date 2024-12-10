@@ -77,7 +77,7 @@ export default function ServicesPage() {
         <div className="mt-24 text-center">
           <h2 className="text-2xl font-semibold tracking-tight">Ready to Transform Your Ideas?</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Let's discuss how we can help you achieve your technical goals.
+            Let&apos;s discuss how we can help you achieve your technical goals.
           </p>
           <Button size="lg" className="mt-8">
             Schedule a Consultation
