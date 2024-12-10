@@ -2,17 +2,13 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export interface ServiceContactProps {
   readonly className?: string;
 }
 
 export function ServiceContact({ className }: ServiceContactProps) {
-  const handleContactClick = () => {
-    // Open HubSpot meeting scheduler
-    window.open('https://meetings.hubspot.com/swiftx', '_blank', 'noopener');
-  };
-
   return (
     <section className={cn('py-16', className)}>
       <div className="container">
@@ -22,8 +18,8 @@ export function ServiceContact({ className }: ServiceContactProps) {
             Let&apos;s discuss how we can help you achieve your technical goals with our expertise
             and proven methodologies.
           </p>
-          <Button onClick={handleContactClick} className="mt-6" size="lg">
-            Schedule a Consultation
+          <Button asChild className="mt-6" size="lg">
+            <Link href="/estimate-project">Schedule a Consultation</Link>
           </Button>
         </div>
       </div>
