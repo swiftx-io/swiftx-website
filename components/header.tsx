@@ -24,16 +24,10 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-6">
-          <NavigationMenu>
+          <NavigationMenu value="services" delayDuration={0}>
             <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  onClick={() => {
-                    router.push('/services');
-                  }}
-                >
-                  Services
-                </NavigationMenuTrigger>
+              <NavigationMenuItem value="services">
+                <NavigationMenuTrigger className="[&>svg]:hidden">Services</NavigationMenuTrigger>
                 <ServicesMenu />
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -59,16 +53,7 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <Button
-              variant="ghost"
-              className="w-full text-left justify-start"
-              onClick={() => {
-                router.push('/services');
-                setIsMenuOpen(false);
-              }}
-            >
-              Services
-            </Button>
+            <ServicesMenu />
             <div className="flex items-center gap-4">
               <ModeToggle />
               <Button
