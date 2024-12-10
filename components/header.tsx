@@ -12,8 +12,6 @@ import {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
 
 export function Header() {

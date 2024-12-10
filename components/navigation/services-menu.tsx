@@ -27,7 +27,9 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
             {...props}
           >
             <div className="text-sm font-medium leading-none">{title}</div>
-            {children && <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>}
+            {children && (
+              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            )}
           </Link>
         </NavigationMenuLink>
       </li>
@@ -42,10 +44,16 @@ export function ServicesMenu() {
       <div className="grid grid-cols-3 gap-4">
         {Object.entries(services).map(([key, category]) => (
           <div key={key} className="space-y-3">
-            <h4 className="text-sm font-medium leading-none text-foreground/70">{category.title}</h4>
+            <h4 className="text-sm font-medium leading-none text-foreground/70">
+              {category.title}
+            </h4>
             <ul className="space-y-2">
               {category.services.map(service => (
-                <ListItem key={service.id} title={service.title} href={`/services/${key}/${service.id}`} />
+                <ListItem
+                  key={service.id}
+                  title={service.title}
+                  href={`/services/${key}/${service.id}`}
+                />
               ))}
             </ul>
           </div>
