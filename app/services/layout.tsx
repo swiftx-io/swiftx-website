@@ -37,6 +37,7 @@ export default function ServicesLayout({ children }: Readonly<ServicesLayoutProp
             ))}
           </div>
           <button
+            type="button"
             className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
