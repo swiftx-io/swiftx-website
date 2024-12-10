@@ -37,27 +37,29 @@ export default function ServicePage({ params }: ServicePageProps) {
   }
 
   return (
-    <main className="min-h-screen">
-      <ServiceHero
-        title={serviceData.title}
-        description={serviceData.description}
-        Icon={serviceData.Icon}
-      />
-      <ServiceOverview
-        title={serviceData.title}
-        description={serviceData.description}
-        services={serviceData.services}
-      />
-      <ServiceProcess services={serviceData.services} />
-      <ServiceTech
-        title={serviceData.title}
-        technologies={serviceData.services.flatMap(service => service.technologies)}
-      />
-      <ServiceWhy
-        title={`Why Choose SwiftX for ${serviceData.title}`}
-        benefits={serviceData.services.flatMap(service => service.benefits || [])}
-      />
-      <ServiceContact />
+    <main className="min-h-screen flex flex-col items-center">
+      <div className="container mx-auto">
+        <ServiceHero
+          title={serviceData.title}
+          description={serviceData.description}
+          Icon={serviceData.Icon}
+        />
+        <ServiceOverview
+          title={serviceData.title}
+          description={serviceData.description}
+          services={serviceData.services}
+        />
+        <ServiceProcess services={serviceData.services} />
+        <ServiceTech
+          title={serviceData.title}
+          technologies={serviceData.services.flatMap(service => service.technologies)}
+        />
+        <ServiceWhy
+          title={`Why Choose SwiftX for ${serviceData.title}`}
+          benefits={serviceData.services.flatMap(service => service.benefits || [])}
+        />
+        <ServiceContact />
+      </div>
     </main>
   );
 }

@@ -6,6 +6,13 @@ import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/logo';
+import { ServicesMenu } from '@/components/navigation/services-menu';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +24,14 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-6">
+          <NavigationMenu delayDuration={0}>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="[&>svg]:hidden">Services</NavigationMenuTrigger>
+                <ServicesMenu />
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           <ModeToggle />
           <Button
             variant="default"
@@ -38,18 +53,16 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <ModeToggle />
-              <Button
-                variant="default"
-                className="w-full"
-                onClick={() => {
-                  router.push('/estimate-project');
-                }}
-              >
-                Estimate Project
-              </Button>
-            </div>
+            <Button
+              variant="default"
+              className="w-full"
+              onClick={() => {
+                router.push('/estimate-project');
+                setIsMenuOpen(false);
+              }}
+            >
+              Estimate Project
+            </Button>
           </div>
         </div>
       )}
