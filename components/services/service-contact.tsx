@@ -10,7 +10,7 @@ export interface ServiceContactProps {
 export function ServiceContact({ className }: ServiceContactProps) {
   const handleContactClick = () => {
     // Open HubSpot meeting scheduler
-    window.open('https://meetings.hubspot.com/swiftx', '_blank');
+    window.open('https://meetings.hubspot.com/swiftx', '_blank', 'noopener');
   };
 
   return (
