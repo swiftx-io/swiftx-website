@@ -53,7 +53,6 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <ServicesMenu />
             <div className="flex items-center gap-4">
               <ModeToggle />
               <Button

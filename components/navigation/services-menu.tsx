@@ -40,10 +40,10 @@ ListItem.displayName = 'ListItem';
 
 export function ServicesMenu() {
   return (
-    <NavigationMenuContent className="w-[1400px] p-6 bg-background/95" forceMount>
-      <div className="grid grid-cols-3 gap-8">
-        <div className="space-y-4">
-          <div className="space-y-2">
+    <NavigationMenuContent className="w-[1400px] p-6 bg-background/95">
+      <div className="grid grid-cols-3 gap-x-12 gap-y-6">
+        <div className="space-y-6">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Ideation
             </h4>
@@ -58,7 +58,7 @@ export function ServicesMenu() {
               ))}
             </ul>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Generative AI and Data
             </h4>
@@ -74,8 +74,8 @@ export function ServicesMenu() {
             </ul>
           </div>
         </div>
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="space-y-6">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Software Development
             </h4>
@@ -90,7 +90,7 @@ export function ServicesMenu() {
               ))}
             </ul>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Maintenance
             </h4>
@@ -106,8 +106,8 @@ export function ServicesMenu() {
             </ul>
           </div>
         </div>
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="space-y-6">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Design
             </h4>
@@ -122,7 +122,7 @@ export function ServicesMenu() {
               ))}
             </ul>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
               Cooperation Models
             </h4>
