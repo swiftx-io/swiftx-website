@@ -1,25 +1,26 @@
 import type { LucideIcon } from 'lucide-react';
 import { Code, Cloud, Brain, Shield, LineChart } from 'lucide-react';
 
-export interface Service {
-  id: string;
-  title: string;
-  description: string;
-  longDescription?: string;
-  technologies: readonly string[];
-  benefits?: readonly string[];
-  process?: ReadonlyArray<{
-    readonly title: string;
-    readonly description: string;
-  }>;
+interface BaseItem {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
 }
 
-export interface ServiceCategory {
-  id: string;
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-  services: ReadonlyArray<Service>;
+interface ProcessStep extends BaseItem {
+  readonly description: string;
+}
+
+export interface Service extends BaseItem {
+  readonly longDescription?: string;
+  readonly technologies: readonly string[];
+  readonly benefits?: readonly string[];
+  readonly process?: readonly ProcessStep[];
+}
+
+export interface ServiceCategory extends BaseItem {
+  readonly Icon: LucideIcon;
+  readonly services: ReadonlyArray<Service>;
 }
 
 export const services: Record<string, ServiceCategory> = {
