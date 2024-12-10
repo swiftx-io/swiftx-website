@@ -2,7 +2,14 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink } from '../ui/navigation-menu';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+} from '../ui/navigation-menu';
 import { services } from '../../lib/services/data';
 import { cn } from '../../lib/utils';
 
@@ -48,7 +55,9 @@ export function ServicesMenu() {
             <div className="grid grid-cols-3 gap-x-16">
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Ideation</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Ideation
+                  </h4>
                   <ul className="space-y-2">
                     {services.ideation.services.map(service => (
                       <ListItem
@@ -61,7 +70,9 @@ export function ServicesMenu() {
                   </ul>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Generative AI and Data</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Generative AI and Data
+                  </h4>
                   <ul className="space-y-2">
                     {services['ai-data'].services.map(service => (
                       <ListItem
@@ -76,7 +87,9 @@ export function ServicesMenu() {
               </div>
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Software Development</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Software Development
+                  </h4>
                   <ul className="space-y-2">
                     {services['software-development'].services.map(service => (
                       <ListItem
@@ -89,7 +102,9 @@ export function ServicesMenu() {
                   </ul>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Maintenance</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Maintenance
+                  </h4>
                   <ul className="space-y-2">
                     {services.maintenance.services.map(service => (
                       <ListItem
@@ -104,7 +119,9 @@ export function ServicesMenu() {
               </div>
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Design</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Design
+                  </h4>
                   <ul className="space-y-2">
                     {services.design.services.map(service => (
                       <ListItem
@@ -117,7 +134,9 @@ export function ServicesMenu() {
                   </ul>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Cooperation Models</h4>
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">
+                    Cooperation Models
+                  </h4>
                   <ul className="space-y-2">
                     {services.cooperation.services.map(service => (
                       <ListItem
@@ -132,7 +151,10 @@ export function ServicesMenu() {
               </div>
             </div>
             <div className="mt-6 flex justify-end">
-              <Link href="/services" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+              <Link
+                href="/services"
+                className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+              >
                 All services
               </Link>
             </div>
