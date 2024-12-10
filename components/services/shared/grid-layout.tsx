@@ -9,11 +9,7 @@ export interface GridLayoutProps {
   readonly className?: string;
 }
 
-export function GridLayout({
-  children,
-  columns = 3,
-  className,
-}: GridLayoutProps) {
+export function GridLayout({ children, columns = 3, className }: GridLayoutProps) {
   return (
     <div
       className={cn(

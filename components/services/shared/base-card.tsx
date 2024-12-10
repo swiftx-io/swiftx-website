@@ -10,19 +10,10 @@ export interface BaseCardProps extends BaseServiceProps {
   readonly icon?: ComponentType<{ className?: string }>;
 }
 
-export function BaseCard({
-  title,
-  description,
-  icon: Icon,
-  children,
-  className,
-}: BaseCardProps) {
+export function BaseCard({ title, description, icon: Icon, children, className }: BaseCardProps) {
   return (
     <div
-      className={cn(
-        'rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50',
-        className
-      )}
+      className={cn('rounded-lg border bg-card p-6 transition-colors hover:bg-muted/50', className)}
     >
       {Icon && <Icon className="mb-4 h-10 w-10 text-primary" />}
       <h3 className="mb-2 text-xl font-semibold tracking-tight">{title}</h3>
