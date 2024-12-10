@@ -27,10 +27,12 @@ export function EstimateProjectForm() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUBSPOT_ACCESS_TOKEN}`,
           },
           body: JSON.stringify({
             fields: [
-              { name: 'name', value: data.name },
+              { name: 'firstname', value: data.firstname },
+              { name: 'lastname', value: data.lastname },
               { name: 'email', value: data.email },
               { name: 'company', value: data.company },
               { name: 'project_description', value: data.projectDescription },
@@ -45,6 +47,8 @@ export function EstimateProjectForm() {
       if (response.ok) {
         router.push('/estimate-project-submitted');
       } else {
+        const errorData = await response.json();
+        console.error('HubSpot API error:', errorData);
         throw new Error('Failed to submit form');
       }
     } catch (error) {
@@ -56,9 +60,33 @@ export function EstimateProjectForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <CustomInputField control={form.control} name="name" label="Full Name" required />
-        <CustomInputField control={form.control} name="email" type="email" label="Email" required />
-        <CustomInputField control={form.control} name="company" label="Company" required />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CustomInputField
+            control={form.control}
+            name="firstname"
+            label="First Name"
+            required
+          />
+          <CustomInputField
+            control={form.control}
+            name="lastname"
+            label="Last Name"
+            required
+          />
+        </div>
+        <CustomInputField
+          control={form.control}
+          name="email"
+          type="email"
+          label="Email"
+          required
+        />
+        <CustomInputField
+          control={form.control}
+          name="company"
+          label="Company"
+          required
+        />
         <CustomTextareaField
           control={form.control}
           name="projectDescription"
