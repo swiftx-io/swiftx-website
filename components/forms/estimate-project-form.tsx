@@ -61,32 +61,11 @@ export function EstimateProjectForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <CustomInputField
-            control={form.control}
-            name="firstname"
-            label="First Name"
-            required
-          />
-          <CustomInputField
-            control={form.control}
-            name="lastname"
-            label="Last Name"
-            required
-          />
+          <CustomInputField control={form.control} name="firstname" label="First Name" required />
+          <CustomInputField control={form.control} name="lastname" label="Last Name" required />
         </div>
-        <CustomInputField
-          control={form.control}
-          name="email"
-          type="email"
-          label="Email"
-          required
-        />
-        <CustomInputField
-          control={form.control}
-          name="company"
-          label="Company"
-          required
-        />
+        <CustomInputField control={form.control} name="email" type="email" label="Email" required />
+        <CustomInputField control={form.control} name="company" label="Company" required />
         <CustomTextareaField
           control={form.control}
           name="projectDescription"
