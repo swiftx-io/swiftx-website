@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { NavigationMenuContent, NavigationMenuLink } from '../ui/navigation-menu';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink } from '../ui/navigation-menu';
 import { services } from '../../lib/services/data';
 import { cn } from '../../lib/utils';
 
@@ -21,12 +21,12 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
             ref={ref}
             href={href}
             className={cn(
-              'block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors text-foreground/80 hover:text-foreground',
+              'block select-none rounded-md p-2 leading-none no-underline outline-none transition-colors text-foreground/70 hover:text-foreground',
               className
             )}
             {...props}
           >
-            <div className="text-sm leading-none">{title}</div>
+            <div className="text-sm leading-relaxed">{title}</div>
             {children && (
               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
             )}
@@ -40,31 +40,105 @@ ListItem.displayName = 'ListItem';
 
 export function ServicesMenu() {
   return (
-    <NavigationMenuContent className="w-[800px] p-6 bg-background">
-      <div className="grid grid-cols-3 gap-8">
-        {Object.entries(services).map(([key, category]) => (
-          <div key={key} className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/90">
-              {category.title}
-            </h4>
-            <ul className="space-y-3">
-              {category.services.map(service => (
-                <ListItem
-                  key={service.id}
-                  title={service.title}
-                  href={`/services/${key}/${service.id}`}
-                  className="hover:bg-accent/10"
-                />
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6 flex justify-end">
-        <Link href="/services" className="text-sm hover:underline">
-          All services
-        </Link>
-      </div>
-    </NavigationMenuContent>
+    <NavigationMenu value="services">
+      <NavigationMenuList>
+        <NavigationMenuItem value="services">
+          <NavigationMenuTrigger className="[&>svg]:hidden">Services</NavigationMenuTrigger>
+          <NavigationMenuContent className="w-[1000px] p-6 bg-background/95" forceMount>
+            <div className="grid grid-cols-3 gap-x-16">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Ideation</h4>
+                  <ul className="space-y-2">
+                    {services.ideation.services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/ideation/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Generative AI and Data</h4>
+                  <ul className="space-y-2">
+                    {services['ai-data'].services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/ai-data/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Software Development</h4>
+                  <ul className="space-y-2">
+                    {services['software-development'].services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/software-development/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Maintenance</h4>
+                  <ul className="space-y-2">
+                    {services.maintenance.services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/maintenance/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Design</h4>
+                  <ul className="space-y-2">
+                    {services.design.services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/design/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold uppercase tracking-wider text-foreground/90 mb-4">Cooperation Models</h4>
+                  <ul className="space-y-2">
+                    {services.cooperation.services.map(service => (
+                      <ListItem
+                        key={service.id}
+                        title={service.title}
+                        href={`/services/cooperation/${service.id}`}
+                        className="hover:bg-accent/5 hover:text-foreground/90"
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <Link href="/services" className="text-sm text-foreground/70 hover:text-foreground transition-colors">
+                All services
+              </Link>
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
