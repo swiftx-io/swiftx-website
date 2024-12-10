@@ -10,11 +10,16 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className={cn('min-h-screen bg-background font-sans antialiased', 'dark:bg-background-dark')}>
+    <div
+      className={cn('min-h-screen bg-background font-sans antialiased', 'dark:bg-background-dark')}
+    >
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center justify-between">
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link href="/services" className="text-sm font-medium transition-colors hover:text-primary">
+            <Link
+              href="/services"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
               All Services
             </Link>
             {Object.entries(services).map(([key, category]) => (
@@ -32,16 +37,12 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
         {isMenuOpen && (
-          <div className="container py-4 md:hidden">
-            <div className="flex flex-col space-y-4">
+          <div className="container pb-4 pt-2 md:hidden">
+            <div className="flex flex-col space-y-3">
               <Link
                 href="/services"
                 className="text-sm font-medium transition-colors hover:text-primary"
