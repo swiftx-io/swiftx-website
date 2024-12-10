@@ -5,6 +5,7 @@ import { ServiceHero } from '@/components/services/service-hero';
 import { ServiceOverview } from '@/components/services/service-overview';
 import { ServiceProcess } from '@/components/services/service-process';
 import { ServiceTech } from '@/components/services/service-tech';
+import { ServiceWhy } from '@/components/services/service-why';
 import { ServiceContact } from '@/components/services/service-contact';
 
 interface ServicePageProps {
@@ -51,6 +52,10 @@ export default function ServicePage({ params }: ServicePageProps) {
       <ServiceTech
         title={serviceData.title}
         technologies={serviceData.services.flatMap(service => service.technologies)}
+      />
+      <ServiceWhy
+        title={`Why Choose SwiftX for ${serviceData.title}`}
+        benefits={serviceData.services.flatMap(service => service.benefits || [])}
       />
       <ServiceContact />
     </main>

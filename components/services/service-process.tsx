@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import type { Service } from '@/lib/services/data';
 
 export interface ServiceProcessProps {
-  services: Service[];
+  services: ReadonlyArray<Service>;
   className?: string;
 }
 

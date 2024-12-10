@@ -4,7 +4,7 @@ import type { Service } from '@/lib/services/data';
 export interface ServiceOverviewProps {
   title: string;
   description: string;
-  services: Service[];
+  services: ReadonlyArray<Service>;
   className?: string;
 }
 
