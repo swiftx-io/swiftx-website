@@ -1,0 +1,9 @@
+Testing Plan:
+1. Check navigation shows only logo and estimate project
+2. Verify all services pages are centered
+3. Test form submission flow:
+   - Fill out estimate project form
+   - Submit and verify redirect
+   - Check thank you page content
+4. Test theme switching affects all pages
+5. Verify consultation buttons lead to estimate project

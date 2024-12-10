@@ -9,16 +9,16 @@ export const metadata: Metadata = {
 
 export default function ThankYouPage() {
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-24 text-center">
-      <h1 className="text-4xl font-bold tracking-tighter mb-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-4xl font-bold mb-4 text-center">
         Thank you for considering SwiftX for your project!
       </h1>
-      <p className="text-lg text-muted-foreground mb-8">
-        Please, check your email&apos;s inbox in couple days for details on scheduling our first
-        call. We look forward learning all about your project.
+      <p className="text-lg text-muted-foreground text-center mb-8">
+        Please, check your email&apos;s inbox in couple days for details on scheduling our first call.
+        We look forward learning all about your project.
       </p>
-      <Button asChild>
-        <Link href="/">Go to swiftx.io</Link>
+      <Button variant="ghost" asChild>
+        <Link href="/">Go to SwiftX</Link>
       </Button>
     </div>
   );
