@@ -21,12 +21,12 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
             ref={ref}
             href={href}
             className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              'block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors text-foreground/80 hover:text-foreground',
               className
             )}
             {...props}
           >
-            <div className="text-sm font-medium leading-none">{title}</div>
+            <div className="text-sm leading-none">{title}</div>
             {children && (
               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
             )}
@@ -40,24 +40,30 @@ ListItem.displayName = 'ListItem';
 
 export function ServicesMenu() {
   return (
-    <NavigationMenuContent className="w-[800px] p-4">
-      <div className="grid grid-cols-3 gap-4">
+    <NavigationMenuContent className="w-[800px] p-6 bg-background">
+      <div className="grid grid-cols-3 gap-8">
         {Object.entries(services).map(([key, category]) => (
-          <div key={key} className="space-y-3">
-            <h4 className="text-sm font-medium leading-none text-foreground/70">
+          <div key={key} className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground/90">
               {category.title}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {category.services.map(service => (
                 <ListItem
                   key={service.id}
                   title={service.title}
                   href={`/services/${key}/${service.id}`}
+                  className="hover:bg-accent/10"
                 />
               ))}
             </ul>
           </div>
         ))}
+      </div>
+      <div className="mt-6 flex justify-end">
+        <Link href="/services" className="text-sm hover:underline">
+          All services
+        </Link>
       </div>
     </NavigationMenuContent>
   );
