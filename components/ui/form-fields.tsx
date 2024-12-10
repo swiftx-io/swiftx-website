@@ -5,18 +5,18 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from './form
 import { Input } from './input';
 import { Textarea } from './textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
-import { Control, ControllerRenderProps } from 'react-hook-form';
+import { Control, ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
-interface BaseFormFieldProps<T extends Record<string, unknown>> {
+interface BaseFormFieldProps<T extends FieldValues> {
   readonly control: Control<T>;
-  readonly name: keyof T;
+  readonly name: Path<T>;
   readonly label: string;
   readonly required?: boolean;
   readonly className?: string;
-  readonly children: (field: ControllerRenderProps<T, keyof T>) => React.ReactNode;
+  readonly children: (field: ControllerRenderProps<T, Path<T>>) => React.ReactNode;
 }
 
-function BaseFormField<T extends Record<string, unknown>>({
+function BaseFormField<T extends FieldValues>({
   control,
   name,
   label,
@@ -42,25 +42,25 @@ function BaseFormField<T extends Record<string, unknown>>({
   );
 }
 
-interface InputFormFieldProps<T extends Record<string, unknown>>
+interface InputFormFieldProps<T extends FieldValues>
   extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly type?: 'text' | 'email' | 'tel';
   readonly placeholder?: string;
 }
 
-interface TextareaFormFieldProps<T extends Record<string, unknown>>
+interface TextareaFormFieldProps<T extends FieldValues>
   extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly rows?: number;
   readonly placeholder?: string;
 }
 
-interface SelectFormFieldProps<T extends Record<string, unknown>>
+interface SelectFormFieldProps<T extends FieldValues>
   extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly options: { value: string; label: string }[];
   readonly placeholder?: string;
 }
 
-export function CustomInputField<T extends Record<string, unknown>>({
+export function CustomInputField<T extends FieldValues>({
   type = 'text',
   placeholder,
   ...props
@@ -72,7 +72,7 @@ export function CustomInputField<T extends Record<string, unknown>>({
   );
 }
 
-export function CustomTextareaField<T extends Record<string, unknown>>({
+export function CustomTextareaField<T extends FieldValues>({
   rows = 4,
   placeholder,
   ...props
@@ -84,7 +84,7 @@ export function CustomTextareaField<T extends Record<string, unknown>>({
   );
 }
 
-export function CustomSelectField<T extends Record<string, unknown>>({
+export function CustomSelectField<T extends FieldValues>({
   options,
   placeholder,
   ...props
