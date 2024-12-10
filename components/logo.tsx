@@ -10,7 +10,7 @@ export function Logo() {
 
   return (
     <Link href="/" className="flex items-center">
-      <div className="relative w-[5.2rem] h-[5.2rem]">
+      <div className="relative w-[83px] h-[83px] sm:w-[5.2rem] sm:h-[5.2rem]">
         <Image
           src={logoSrc}
           alt="SwiftX Logo"
