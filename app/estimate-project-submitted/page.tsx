@@ -14,8 +14,8 @@ export default function ThankYouPage() {
         Thank you for considering SwiftX for your project!
       </h1>
       <p className="text-lg text-muted-foreground text-center mb-8">
-        Please, check your email&apos;s inbox in couple days for details on scheduling our first call.
-        We look forward to learning all about your project.
+        Please check your email&apos;s inbox in a couple days for details on scheduling our first
+        call. We look forward to learning all about your project.
       </p>
       <Button variant="ghost" asChild>
         <Link href="/">Go to SwiftX</Link>
