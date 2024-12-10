@@ -129,12 +129,16 @@ const createServices = (
   benefits: readonly string[]
 ) =>
   definitions.map(([id, title, description]) =>
-    createService(id, title, createTemplate(
-      description,
-      `Comprehensive ${title.toLowerCase()} solutions tailored to your needs.`,
-      technologies,
-      benefits
-    ))
+    createService(
+      id,
+      title,
+      createTemplate(
+        description,
+        `Comprehensive ${title.toLowerCase()} solutions tailored to your needs.`,
+        technologies,
+        benefits
+      )
+    )
   );
 
 // Service categories with appropriate technologies and benefits
