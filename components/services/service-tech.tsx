@@ -1,36 +1,31 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-
-interface TechDescriptionProps {
-  title: string;
-}
-
-function TechDescription({ title }: TechDescriptionProps) {
-  return (
-    <span>Our {title.toLowerCase()} solutions leverage industry-leading technologies:</span>
-  );
-}
+import type { Service } from '@/lib/services/data';
 
 export interface ServiceTechProps {
   title: string;
-  technologies: string[];
+  technologies: ReadonlyArray<string>;
   className?: string;
 }
 
 export function ServiceTech({ title, technologies, className }: ServiceTechProps) {
-  // Remove duplicates and sort alphabetically
+  // Create a new array from the readonly array for sorting
   const uniqueTechnologies = Array.from(new Set(technologies)).sort();
 
   return (
     <section className={cn('py-12 sm:py-16 lg:py-24 bg-muted/50', className)}>
       <div className="container">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Technologies & Tools</h2>
-        <p className="mt-4 text-lg sm:text-xl text-muted-foreground">
-          <TechDescription title={title} />
-        </p>
+        <div className="mb-8 sm:mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
+            {title} Technologies
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
+            Our solutions leverage industry-leading technologies and tools
+          </p>
+        </div>
         <div className="mt-8 sm:mt-12 lg:mt-16 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {uniqueTechnologies.map(tech => (
+          {uniqueTechnologies.map((tech) => (
             <div
               key={tech}
               className={cn(
