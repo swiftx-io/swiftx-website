@@ -1,41 +1,38 @@
 import { cn } from '@/lib/utils';
+import type { Service } from '@/lib/services/data';
 
 export interface ServiceOverviewProps {
-  benefits: Array<{
-    title: string;
-    description: string;
-  }>;
-  capabilities: string[];
+  title: string;
+  description: string;
+  services: Service[];
   className?: string;
 }
 
-export function ServiceOverview({ benefits, capabilities, className }: ServiceOverviewProps) {
+export function ServiceOverview({ title, description, services, className }: ServiceOverviewProps) {
   return (
     <section className={cn('py-16', className)}>
       <div className="container">
-        <div className="grid gap-12 md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Key Benefits</h2>
-            <div className="mt-6 space-y-8">
-              {benefits.map(benefit => (
-                <div key={benefit.title}>
-                  <h3 className="font-medium">{benefit.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{benefit.description}</p>
-                </div>
-              ))}
+        <div className="mb-12">
+          <h2 className="text-3xl font-semibold tracking-tight">{title}</h2>
+          <p className="mt-4 text-lg text-muted-foreground">{description}</p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {services.map(service => (
+            <div key={service.id} className="rounded-lg border bg-card p-6">
+              <h3 className="font-medium">{service.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{service.description}</p>
+              {service.benefits && service.benefits.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {service.benefits.map(benefit => (
+                    <li key={benefit} className="flex items-center text-sm">
+                      <span className="mr-2 text-primary">•</span>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Technical Capabilities</h2>
-            <ul className="mt-6 space-y-4 text-muted-foreground">
-              {capabilities.map(capability => (
-                <li key={capability} className="flex items-center">
-                  <span className="mr-2">•</span>
-                  {capability}
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
       </div>
     </section>

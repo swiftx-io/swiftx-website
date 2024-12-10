@@ -1,5 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { services } from '@/lib/services/data';
+import { ServiceHero } from '@/components/services/service-hero';
+import { ServiceOverview } from '@/components/services/service-overview';
+import { ServiceProcess } from '@/components/services/service-process';
+import { ServiceTech } from '@/components/services/service-tech';
+import { ServiceContact } from '@/components/services/service-contact';
 
 interface ServicePageProps {
   params: {
@@ -8,26 +14,45 @@ interface ServicePageProps {
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const title = `${params.service.charAt(0).toUpperCase() + params.service.slice(1)} - SwiftX`;
+  const serviceData = services[params.service];
+  if (!serviceData) {
+    return {
+      title: 'Service Not Found - SwiftX',
+      description: 'The requested service could not be found.',
+    };
+  }
+
   return {
-    title,
-    description: `Learn more about our ${params.service} services and how we can help your business succeed.`,
+    title: `${serviceData.title} - SwiftX`,
+    description: serviceData.description,
   };
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  if (!params.service) {
+  const serviceData = services[params.service];
+
+  if (!serviceData) {
     notFound();
   }
 
   return (
-    <div className="container">
-      <section className="py-24">
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-          {params.service.charAt(0).toUpperCase() + params.service.slice(1)}
-        </h1>
-        <div className="mt-6 text-lg text-muted-foreground">Service content will be added here</div>
-      </section>
-    </div>
+    <main className="min-h-screen">
+      <ServiceHero
+        title={serviceData.title}
+        description={serviceData.description}
+        Icon={serviceData.Icon}
+      />
+      <ServiceOverview
+        title={serviceData.title}
+        description={serviceData.description}
+        services={serviceData.services}
+      />
+      <ServiceProcess services={serviceData.services} />
+      <ServiceTech
+        title={serviceData.title}
+        technologies={serviceData.services.flatMap(service => service.technologies)}
+      />
+      <ServiceContact />
+    </main>
   );
 }
