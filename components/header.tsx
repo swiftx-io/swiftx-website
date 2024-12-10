@@ -24,9 +24,9 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-6">
-          <NavigationMenu value="services" delayDuration={0}>
+          <NavigationMenu delayDuration={0}>
             <NavigationMenuList>
-              <NavigationMenuItem value="services">
+              <NavigationMenuItem>
                 <NavigationMenuTrigger className="[&>svg]:hidden">Services</NavigationMenuTrigger>
                 <ServicesMenu />
               </NavigationMenuItem>
@@ -53,19 +53,16 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <ModeToggle />
-              <Button
-                variant="default"
-                className="w-full"
-                onClick={() => {
-                  router.push('/estimate-project');
-                  setIsMenuOpen(false);
-                }}
-              >
-                Estimate Project
-              </Button>
-            </div>
+            <Button
+              variant="default"
+              className="w-full"
+              onClick={() => {
+                router.push('/estimate-project');
+                setIsMenuOpen(false);
+              }}
+            >
+              Estimate Project
+            </Button>
           </div>
         </div>
       )}
