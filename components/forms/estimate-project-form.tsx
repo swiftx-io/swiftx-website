@@ -75,8 +75,8 @@ export function EstimateProjectForm() {
           label="Project Description"
           required
         />
-        <Button type="submit" className="w-full">
-          Submit
+        <Button type="submit" className="self-start">
+          Request a Free Estimate
         </Button>
       </form>
     </Form>
