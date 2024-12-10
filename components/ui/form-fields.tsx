@@ -6,27 +6,26 @@ import { Input } from './input';
 import { Textarea } from './textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Control, ControllerRenderProps } from 'react-hook-form';
-import { ContactFormData } from '@/lib/schemas/contact-form';
 
-interface BaseFormFieldProps {
-  readonly control: Control<ContactFormData>;
-  readonly name: keyof ContactFormData;
+interface BaseFormFieldProps<T> {
+  readonly control: Control<T>;
+  readonly name: keyof T;
   readonly label: string;
   readonly required?: boolean;
   readonly className?: string;
   readonly children: (
-    field: ControllerRenderProps<ContactFormData, keyof ContactFormData>
+    field: ControllerRenderProps<T, keyof T>
   ) => React.ReactNode;
 }
 
-function BaseFormField({
+function BaseFormField<T>({
   control,
   name,
   label,
   required = false,
   className,
   children,
-}: BaseFormFieldProps) {
+}: BaseFormFieldProps<T>) {
   return (
     <FormField
       control={control}
@@ -45,43 +44,50 @@ function BaseFormField({
   );
 }
 
-interface InputFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+interface InputFormFieldProps<T> extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly type?: 'text' | 'email' | 'tel';
   readonly placeholder?: string;
 }
 
-interface TextareaFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+interface TextareaFormFieldProps<T> extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly rows?: number;
   readonly placeholder?: string;
 }
 
-interface SelectFormFieldProps extends Omit<BaseFormFieldProps, 'children'> {
+interface SelectFormFieldProps<T> extends Omit<BaseFormFieldProps<T>, 'children'> {
   readonly options: { value: string; label: string }[];
   readonly placeholder?: string;
 }
 
-export function CustomInputField({ type = 'text', placeholder, ...props }: InputFormFieldProps) {
+export function CustomInputField<T>({ type = 'text', placeholder, ...props }: InputFormFieldProps<T>) {
   return (
     <BaseFormField {...props}>
-      {field => <Input type={type} {...field} placeholder={placeholder} />}
+      {field => <Input type={type} {...field} placeholder={placeholder} className="bg-background" />}
     </BaseFormField>
   );
 }
 
-export function CustomTextareaField({ rows = 4, placeholder, ...props }: TextareaFormFieldProps) {
+export function CustomTextareaField<T>({ rows = 4, placeholder, ...props }: TextareaFormFieldProps<T>) {
   return (
     <BaseFormField {...props}>
-      {field => <Textarea rows={rows} {...field} placeholder={placeholder} />}
+      {field => (
+        <Textarea
+          rows={rows}
+          {...field}
+          placeholder={placeholder}
+          className="bg-background min-h-[120px]"
+        />
+      )}
     </BaseFormField>
   );
 }
 
-export function CustomSelectField({ options, placeholder, ...props }: SelectFormFieldProps) {
+export function CustomSelectField<T>({ options, placeholder, ...props }: SelectFormFieldProps<T>) {
   return (
     <BaseFormField {...props}>
       {field => (
         <Select onValueChange={field.onChange} defaultValue={field.value}>
-          <SelectTrigger>
+          <SelectTrigger className="bg-background">
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
