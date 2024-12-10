@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { ServiceCard } from '@/components/services/service-card';
 import { Button } from '@/components/ui/button';
 import { Code, Cloud, Brain, Shield, LineChart } from 'lucide-react';
@@ -79,8 +80,8 @@ export default function ServicesPage() {
           <p className="mt-4 text-lg text-muted-foreground">
             Let&apos;s discuss how we can help you achieve your technical goals.
           </p>
-          <Button size="lg" className="mt-8">
-            Schedule a Consultation
+          <Button asChild size="lg" className="mt-8">
+            <Link href="/estimate-project">Schedule a Consultation</Link>
           </Button>
         </div>
       </section>
