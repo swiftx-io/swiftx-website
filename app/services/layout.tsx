@@ -6,7 +6,11 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
-export default function ServicesLayout({ children }: { children: React.ReactNode }) {
+interface ServicesLayoutProps {
+  readonly children: React.ReactNode;
+}
+
+export default function ServicesLayout({ children }: Readonly<ServicesLayoutProps>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (

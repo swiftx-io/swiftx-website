@@ -9,7 +9,9 @@ export interface ServiceTechProps {
 }
 
 export function ServiceTech({ title, technologies, className }: ServiceTechProps) {
-  const uniqueTechnologies = Array.from(new Set(technologies)).sort();
+  const uniqueTechnologies = Array.from(new Set(technologies)).sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true })
+  );
 
   return (
     <section

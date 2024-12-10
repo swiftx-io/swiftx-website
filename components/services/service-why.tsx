@@ -25,9 +25,9 @@ export function ServiceWhy({ title = 'Why Choose SwiftX', benefits, className }:
           {title}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((benefit, index) => (
+          {benefits.map(benefit => (
             <div
-              key={index}
+              key={`benefit-${benefit.toLowerCase().replace(/\s+/g, '-')}`}
               className={cn(
                 'flex items-start space-x-3 sm:space-x-4 p-4 sm:p-6 rounded-lg border',
                 'bg-card text-card-foreground dark:bg-card-dark dark:text-card-foreground-dark',
