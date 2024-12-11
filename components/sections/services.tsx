@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Code2, Cloud, Smartphone, LineChart } from 'lucide-react';
+import { BrandingText } from '@/components/ui/branding-text';
 
 const services = [
   {
@@ -32,11 +33,22 @@ export function ServicesSection() {
   return (
     <section id="services" className="py-24 px-6 sm:px-8 bg-muted/50">
       <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Our Services</h2>
-          <p className="text-muted-foreground">
-            We offer a comprehensive range of software development services to help your business
-            thrive in the digital age.
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl font-bold tracking-tight mb-4">
+            Digital acceleration services for <BrandingText>business growth</BrandingText>
+          </h2>
+          <p className="text-xl text-muted-foreground mb-16">
+            Design. Development. Consulting. 10 years and counting.
+          </p>
+
+          <h3 className="text-2xl font-semibold mb-4">
+            One-stop shop for <BrandingText>digital</BrandingText>
+          </h3>
+          <p className="text-muted-foreground mb-16">
+            We help deliver digital excellence at every stage of the product journey, from early
+            ideation to research, prototyping, testing, launch, and ongoing support. Explore our
+            end-to-end services designed to improve business metrics and deliver delightful digital
+            experiences.
           </p>
         </div>
 
