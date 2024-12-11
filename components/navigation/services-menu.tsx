@@ -40,8 +40,8 @@ ListItem.displayName = 'ListItem';
 
 export function ServicesMenu() {
   return (
-    <NavigationMenuContent className="w-screen">
-      <div className="mx-auto w-full max-w-[2000px] p-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <NavigationMenuContent className="w-full">
+      <div className="mx-auto w-full max-w-[2400px] p-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="grid grid-cols-3 gap-16">
           <div className="space-y-6">
             <div className="space-y-3">
