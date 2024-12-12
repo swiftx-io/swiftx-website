@@ -85,12 +85,32 @@ const createCategory = (
 
 // Service definitions using templates and patterns
 const serviceDefinitions = {
-  coreDevelopment: [
-    ['web-development', 'Web Application Development', patterns.descriptions.development],
-    ['api-development', 'API Development & Integration', patterns.descriptions.integration],
-    ['backend-systems', 'Backend Systems Architecture', patterns.descriptions.development],
-    ['frontend-development', 'Frontend Development', patterns.descriptions.development],
-    ['database-design', 'Database Design & Optimization', patterns.descriptions.development],
+  webDevelopment: [
+    [
+      'website-development',
+      'Website Development',
+      'A well-designed website is a powerful marketing and communication tool that helps build trust and generate leads.',
+    ],
+    [
+      'ecommerce-solutions',
+      'eCommerce Solutions',
+      'eCommerce solutions enable businesses to operate 24/7 and reach customers in any time zone.',
+    ],
+    [
+      'web-applications',
+      'Web Applications',
+      "Web applications can reach a global audience, being interactive and engaging to hold users' attention.",
+    ],
+    [
+      'cms-development',
+      'Content Management Systems',
+      'A dedicated CMS designed for specific business needs saves time and money by optimizing internal workflows.',
+    ],
+    [
+      'low-code-development',
+      'Low-Code Development',
+      'Low-code and no-code solutions offer an easy, modular, and scalable way of building applications.',
+    ],
   ],
   cloudInfrastructure: [
     ['cloud-architecture', 'Cloud Architecture', patterns.descriptions.cloud],
@@ -142,8 +162,8 @@ const createServices = (
   );
 
 // Service categories with appropriate technologies and benefits
-const coreDevelopmentServices = createServices(
-  serviceDefinitions.coreDevelopment,
+const webDevelopmentServices = createServices(
+  serviceDefinitions.webDevelopment,
   patterns.technologies.web,
   patterns.benefits.performance
 );
@@ -170,12 +190,12 @@ const consultingStrategyServices = createServices(
 
 // Export service categories
 export const services: Record<string, ServiceCategory> = {
-  'core-development': createCategory(
-    'core-development',
-    'Core Development Services',
-    'End-to-end development solutions for modern applications',
+  'web-development': createCategory(
+    'web-development',
+    'Web Development Services',
+    'We design and build industry-leading web-based products that delight your customers',
     Code,
-    coreDevelopmentServices
+    webDevelopmentServices
   ),
   'cloud-infrastructure': createCategory(
     'cloud-infrastructure',
