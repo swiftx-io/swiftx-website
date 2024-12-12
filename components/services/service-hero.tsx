@@ -17,7 +17,7 @@ export function ServiceHero({ title, description, Icon, className }: ServiceHero
         className
       )}
     >
-      <div className="container relative z-10">
+      <div className="container max-w-7xl mx-auto relative z-10">
         <div className="flex items-start gap-6">
           <Icon className="h-12 w-12 flex-shrink-0 text-primary" />
           <div>

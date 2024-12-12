@@ -53,7 +53,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="container">
+    <div className="container max-w-7xl mx-auto">
       <section className="py-24">
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
           Technical Excellence for Digital Innovation

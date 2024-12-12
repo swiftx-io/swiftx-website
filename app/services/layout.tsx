@@ -18,7 +18,7 @@ export default function ServicesLayout({ children }: Readonly<ServicesLayoutProp
       className={cn('min-h-screen bg-background font-sans antialiased', 'dark:bg-background-dark')}
     >
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center justify-between">
+        <div className="container max-w-7xl mx-auto flex h-14 items-center justify-between">
           <div className="hidden md:flex md:items-center md:space-x-6">
             <Link
               href="/services"
@@ -46,7 +46,7 @@ export default function ServicesLayout({ children }: Readonly<ServicesLayoutProp
           </button>
         </div>
         {isMenuOpen && (
-          <div className="container pb-4 pt-2 md:hidden">
+          <div className="container max-w-7xl mx-auto pb-4 pt-2 md:hidden">
             <div className="flex flex-col space-y-3">
               <Link
                 href="/services"

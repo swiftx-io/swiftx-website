@@ -11,7 +11,7 @@ export interface ServiceOverviewProps {
 export function ServiceOverview({ title, description, services, className }: ServiceOverviewProps) {
   return (
     <section className={cn('py-8 sm:py-12 md:py-16', className)}>
-      <div className="container">
+      <div className="container max-w-7xl mx-auto">
         <div className="mb-6 sm:mb-8 md:mb-12">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl">{title}</h2>
           <p className="mt-3 text-base text-muted-foreground sm:text-lg md:text-xl max-w-3xl">

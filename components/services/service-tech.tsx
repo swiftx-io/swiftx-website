@@ -20,7 +20,7 @@ export function ServiceTech({ title, technologies, className }: ServiceTechProps
         className
       )}
     >
-      <div className="container">
+      <div className="container max-w-7xl mx-auto">
         <div className="mb-6 sm:mb-8 md:mb-12">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight">
             {title} Technologies

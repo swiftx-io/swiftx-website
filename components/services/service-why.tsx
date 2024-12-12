@@ -20,7 +20,7 @@ export function ServiceWhy({ title = 'Why Choose SwiftX', benefits, className }:
         className
       )}
     >
-      <div className="container">
+      <div className="container max-w-7xl mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 md:mb-12">
           {title}
         </h2>
