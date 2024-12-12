@@ -15,7 +15,7 @@ export function ServiceContact({ className }: ServiceContactProps) {
 
   return (
     <section className={cn('py-16', className)}>
-      <div className="container">
+      <div className="container max-w-7xl mx-auto">
         <div className="rounded-lg border bg-muted/50 p-8 text-center">
           <h2 className="text-2xl font-semibold tracking-tight">Ready to Get Started?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
